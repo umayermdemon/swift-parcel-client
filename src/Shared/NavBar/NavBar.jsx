@@ -45,12 +45,12 @@ const NavBar = () => {
   );
   return (
     <div className=" max-h-[768px] w-full ">
-      <Navbar className="sticky  top-0 z-10 h-max max-w-full shadow-none rounded-none px-4 py-2 lg:px-16 lg:py-4">
+      <Navbar className="sticky  top-0 z-10 h-max max-w-full shadow-none rounded-none px-4 py-2 lg:px-16">
         <div className="flex items-center  justify-between text-blue-gray-900">
           <Typography className="mr-4  flex items-center gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
             <img src={logo} alt="" className="w-16" />
-            <div className="flex items-center">
-            <p className="text-7xl">S</p>
+            <div className="flex items-center md:text-4xl">
+            <p className="text-5xl md:text-7xl">S</p>
             <sub>wift</sub>
             </div>
           </Typography>
