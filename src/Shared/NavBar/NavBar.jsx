@@ -44,7 +44,7 @@ const NavBar = () => {
     </ul>
   );
   return (
-    <div className=" max-h-[768px] w-full ">
+    <div className=" lg:max-h-[768px] w-full ">
       <Navbar className="sticky  top-0 z-10 h-max max-w-full shadow-none rounded-none px-4 py-2 lg:px-16">
         <div className="flex items-center  justify-between text-blue-gray-900">
           <Typography className="mr-4  flex items-center gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
