@@ -27,7 +27,7 @@ const NavUp = () => {
             <a href="https://www.youtube.com" target="_blank" className="bg-light-blue-700 p-1 rounded-full"><FaYoutube /></a>
             <a href="https://x.com" target="_blank" className="bg-light-blue-700 p-1 rounded-full"><FaTwitter /></a>
           </div>
-          <div className="flex items-center gap-4 font-inter text-white">
+          <div className="flex items-center gap-4  text-white">
             <h1>News & Media</h1>
             <h1>FAQs</h1>
             <h1>Get Quote</h1>

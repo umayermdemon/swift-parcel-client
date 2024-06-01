@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Super Fast Delivery",
+    "description": "Swift delivers parcels quickly using an optimized logistics network and advanced routing algorithms.",
+    "icon": "🚀",
+    "bgColor": "#D6EAF8"
+  },
+  {
+    "title": "Secured Service",
+    "description": "Swift protects parcels with encrypted data, secure facilities, and real-time tracking.",
+    "icon": "🔒",
+    "bgColor": "#FCF3CF"
+  },
+  {
+    "title": "Free Estimate",
+    "description": "Get accurate, no-obligation quotes for your parcel shipments with Swift’s free estimate service.",
+    "icon": "💲",
+    "bgColor": "#F9EBEA"
+  },
+  {
+    "title": "24/7 Services",
+    "description": "Swift offers round-the-clock parcel services to meet your shipping needs anytime.",
+    "icon": "⏰",
+
+    "bgColor": "#D5F5E3"
+  },
+  {
+    "title": "Flat Rate Fees",
+    "description": "Enjoy predictable pricing with Swift’s flat rate fees and no hidden charges.",
+    "icon": "📦",
+    "bgColor": "#D6EAF8"
+  }
+]
+
+

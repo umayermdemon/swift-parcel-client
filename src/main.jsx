@@ -9,7 +9,7 @@ AOS.init();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <div className="font-cinzel">
+    <div className="font-inter">
       <RouterProvider router={router} />
     </div>
   </React.StrictMode>
