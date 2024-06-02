@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import logo from "../../assets/logo/logo3.png";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
@@ -20,23 +21,17 @@ const NavBar = () => {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 text-black lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        className="p-1 font-semibold"
-      >
+      <Typography className="p-1 font-semibold">
         <a href="#" className="flex items-center">
           Home
         </a>
       </Typography>
-      <Typography
-        className="p-1 font-semibold"
-      >
+      <Typography className="p-1 font-semibold">
         <a href="#" className="flex items-center">
           Dashboard
         </a>
       </Typography>
-      <Typography
-        className="p-1 font-semibold"
-      >
+      <Typography className="p-1 font-semibold">
         <a href="#" className="flex items-center">
           Notification icon
         </a>
@@ -50,27 +45,32 @@ const NavBar = () => {
           <Typography className="mr-4  flex items-center gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
             <img src={logo} alt="" className="w-16" />
             <div className="flex items-center md:text-4xl">
-            <p className="text-5xl md:text-7xl">S</p>
-            <sub>wift</sub>
+              <p className="text-5xl md:text-7xl">S</p>
+              <sub>wift</sub>
             </div>
           </Typography>
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Sign in</span>
-              </Button>
+              <Link to="/login">
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                >
+                  Log In
+                </Button>
+              </Link>
+              <span className="hidden lg:inline-block">/</span>
+              <Link to='/register'>
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                >
+                  Register
+                </Button>
+              </Link>
             </div>
             <IconButton
               variant="text"
@@ -114,12 +114,16 @@ const NavBar = () => {
         <MobileNav open={openNav}>
           {navList}
           <div className="flex items-end gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
+            <Link to="/login">
+              <Button fullWidth variant="gradient" size="sm" className="">
+                Log In
+              </Button>
+            </Link>
+            <Link to='/register'>
+              <Button fullWidth variant="gradient" size="sm" className="">
+                Register
+              </Button>
+            </Link>
           </div>
         </MobileNav>
       </Navbar>
