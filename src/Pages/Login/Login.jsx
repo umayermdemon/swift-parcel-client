@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signInUser,googleRegister,githubRegister } = useAuth();
+  const { signInUser,googleRegister,githubRegister,facebookRegister } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
@@ -149,6 +149,50 @@ const Login = () => {
         }
       });
   };
+  const handleFacebookLogin = () => {
+   facebookRegister()
+      .then((result) => {
+        console.log(result.user);
+        if (result.user) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Logged in successfully",
+          });
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Something Error",
+          });
+        }
+      });
+  };
   return (
     <div className="min-h-screen ">
       <img
@@ -236,7 +280,7 @@ const Login = () => {
               className="text-3xl cursor-pointer"
             />
             <FaGithub onClick={handleGithubLogin} className="text-3xl cursor-pointer" />
-            <FaFacebook className="text-3xl cursor-pointer text-blue-600" />
+            <FaFacebook onClick={handleFacebookLogin} className="text-3xl cursor-pointer text-blue-600" />
           </div>
         </div>
       </div>

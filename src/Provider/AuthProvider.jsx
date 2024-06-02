@@ -1,4 +1,5 @@
 import {
+  FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -14,6 +15,7 @@ import { auth } from "../firebase/firebase.config";
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -48,6 +50,10 @@ const AuthProvider = ({ children }) => {
     setLoader(true);
     return signInWithPopup(auth,githubProvider)
   }
+  const facebookRegister=()=>{
+    setLoader(true);
+    return signInWithPopup(auth,facebookProvider)
+  }
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -66,7 +72,8 @@ const AuthProvider = ({ children }) => {
     updateUSerProfile,
     logOut,
     googleRegister,
-    githubRegister
+    githubRegister,
+    facebookRegister
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

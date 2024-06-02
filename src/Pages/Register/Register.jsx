@@ -11,7 +11,7 @@ import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
-  const { createUser, updateUSerProfile, logOut, googleRegister,githubRegister } = useAuth();
+  const { createUser, updateUSerProfile, logOut, googleRegister,githubRegister,facebookRegister } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
@@ -156,6 +156,50 @@ const Register = () => {
         }
       });
   };
+  const handleFacebookRegister = () => {
+   facebookRegister()
+      .then((result) => {
+        console.log(result.user);
+        if (result.user) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Registered successfully",
+          });
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Something Error",
+          });
+        }
+      });
+  };
   return (
     <div className="min-h-screen">
       <img
@@ -256,7 +300,7 @@ const Register = () => {
               className="text-3xl cursor-pointer"
             />
             <FaGithub onClick={handleGithubRegister} className="text-3xl cursor-pointer" />
-            <FaFacebook className="text-3xl cursor-pointer text-blue-600" />
+            <FaFacebook onClick={handleFacebookRegister} className="text-3xl cursor-pointer text-blue-600" />
           </div>
         </div>
       </div>
