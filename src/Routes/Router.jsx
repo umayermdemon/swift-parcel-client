@@ -10,6 +10,12 @@ import BookParcel from "../Pages/Dashboard/User/BookParcel/BookParcel";
 import UserHome from "../Pages/Dashboard/User/UserHome/UserHome";
 import MyParcel from "../Pages/Dashboard/User/MyParcel/MyParcel";
 import UserProfile from "../Pages/Dashboard/User/UserProfile/UserProfile";
+import AllParcels from "../Pages/Dashboard/Admin/AllParcels/AllParcels";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
+import AllDeliveryMan from "../Pages/Dashboard/Admin/AllDeliveryMan/AllDeliveryMan";
+import Statistics from "../Pages/Dashboard/Admin/Statistics/Statistics";
+import DeliveryList from "../Pages/Dashboard/DeliveryMan/DeliveryList/DeliveryList";
+import Reviews from "../Pages/Dashboard/DeliveryMan/Reviews/Reviews";
 export const router=createBrowserRouter([
  {
   path:'/',
@@ -34,6 +40,7 @@ export const router=createBrowserRouter([
   path:'/dashboard',
   element:<PrivateRoute><Dashboard/></PrivateRoute>,
   children:[
+    // user route
     {
       path:'userHome',
       element:<UserHome/>
@@ -50,6 +57,35 @@ export const router=createBrowserRouter([
       path:'userProfile',
       element:<UserProfile/>
     },
+    // admin route
+    {
+      path:'allParcels',
+      element:<AllParcels/>
+    },
+    {
+      path:'allUsers',
+      element:<AllUsers/>
+    },
+    {
+      path:'allDeliveryMan',
+      element:<AllDeliveryMan/>
+    },
+    {
+      path:'statistics',
+      element:<Statistics/>
+    },
+
+    // delivery man route
+    {
+      path:'deliveryList',
+      element:<DeliveryList/>
+    },
+    {
+      path:'reviews',
+      element:<Reviews/>
+    },
+
+
   ]
  }
 ])

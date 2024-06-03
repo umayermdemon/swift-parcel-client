@@ -6,13 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { FcGoogle } from "react-icons/fc";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signInUser,googleRegister,githubRegister,facebookRegister } = useAuth();
+  const { signInUser } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
@@ -57,138 +57,6 @@ const Login = () => {
           Toast.fire({
             icon: "error",
             title: "Please Provide Valid Email & Password",
-          });
-        }
-      });
-  };
-  const handleGoogleLogin = () => {
-    googleRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Logged in successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
-          });
-        }
-      });
-  };
-  const handleGithubLogin = () => {
-    githubRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Logged in successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
-          });
-        }
-      });
-  };
-  const handleFacebookLogin = () => {
-   facebookRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Logged in successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
           });
         }
       });
@@ -272,17 +140,8 @@ const Login = () => {
             </Typography>
           </form>
         </Card>
-        <div className="flex flex-col space-y-4 mt-4 items-center">
-          <h1 className="text-xl font-bold">Or Login With....</h1>
-          <div className="flex  gap-12 pt-4">
-            <FcGoogle
-              onClick={handleGoogleLogin}
-              className="text-3xl cursor-pointer"
-            />
-            <FaGithub onClick={handleGithubLogin} className="text-3xl cursor-pointer" />
-            <FaFacebook onClick={handleFacebookLogin} className="text-3xl cursor-pointer text-blue-600" />
-          </div>
-        </div>
+        <h1 className="text-xl font-bold text-center">Or Login With....</h1>
+        <SocialLogin />
       </div>
     </div>
   );

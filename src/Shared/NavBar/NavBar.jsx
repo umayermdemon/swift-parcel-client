@@ -16,6 +16,7 @@ import useAuth from "../../hooks/useAuth";
 import { FaPowerOff, FaUser } from "react-icons/fa";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { IoIosNotifications} from "react-icons/io";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
@@ -34,15 +35,15 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 text-black lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mt-2 mb-4 flex flex-col gap-2 text-black lg:mb-0 lg:mt-0 lg:flex-row lg:items-center ">
       <Typography className="p-1 font-semibold">
         <a href="#" className="flex items-center">
           Home
         </a>
       </Typography>
       <Typography className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
-          Notification icon
+        <a  className="flex items-center">
+        <IoIosNotifications className="text-2xl"/>
         </a>
       </Typography>
       

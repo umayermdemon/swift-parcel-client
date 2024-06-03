@@ -7,23 +7,24 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
-import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const Register = () => {
-  const { createUser, updateUSerProfile, logOut, googleRegister,githubRegister,facebookRegister } = useAuth();
+  const { createUser, updateUSerProfile, logOut } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     const name = data.name;
     const email = data.email;
     const password = data.password;
     const photo = data.photoUrl;
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
         if (result.user) {
           const Toast = Swal.mixin({
             toast: true,
@@ -38,16 +39,26 @@ const Register = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Registered successfully",
+            title: "Registered successfully. Please Login",
           });
-          updateUSerProfile(name, photo).then().catch();
-          logOut();
-          navigate("/login");
+          updateUSerProfile(name, photo)
+            .then(() => {
+              const userInfo = {
+                name: name,
+                email: email,
+                roll: "user",
+              };
+              axiosPublic.post("/users", userInfo).then((res) => {
+                if (res.data.insertedId) {
+                  logOut();
+                }
+              });
+              navigate("/login");
+            })
+            .catch((error) => console.error(error));
         }
-        reset();
       })
       .catch((error) => {
-        console.error(error);
         if (error) {
           const Toast = Swal.mixin({
             toast: true,
@@ -62,144 +73,12 @@ const Register = () => {
           });
           Toast.fire({
             icon: "error",
-            title: "Please provide valid information",
+            title: "Email already in use. Please login",
           });
         }
       });
   };
 
-  const handleGoogleRegister = () => {
-    googleRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
-          });
-        }
-      });
-  };
-  const handleGithubRegister = () => {
-    githubRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
-          });
-        }
-      });
-  };
-  const handleFacebookRegister = () => {
-   facebookRegister()
-      .then((result) => {
-        console.log(result.user);
-        if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully",
-          });
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Something Error",
-          });
-        }
-      });
-  };
   return (
     <div className="min-h-screen">
       <img
@@ -292,17 +171,9 @@ const Register = () => {
             </Typography>
           </form>
         </Card>
-        <div className="flex flex-col space-y-4 mt-4 items-center">
-          <h1 className="text-xl font-bold">Or Register With....</h1>
-          <div className="flex  gap-12 pt-4">
-            <FcGoogle
-              onClick={handleGoogleRegister}
-              className="text-3xl cursor-pointer"
-            />
-            <FaGithub onClick={handleGithubRegister} className="text-3xl cursor-pointer" />
-            <FaFacebook onClick={handleFacebookRegister} className="text-3xl cursor-pointer text-blue-600" />
-          </div>
-        </div>
+        <h1 className="text-xl font-bold text-center">Or Register With....</h1>
+
+        <SocialLogin />
       </div>
     </div>
   );

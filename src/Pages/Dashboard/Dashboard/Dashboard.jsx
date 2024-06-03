@@ -8,13 +8,18 @@ import {
 } from "@material-tailwind/react";
 import useAuth from "../../../hooks/useAuth";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { FaBook, FaHome, FaTruck, FaUser } from "react-icons/fa";
+import { FaBook, FaHome, FaList, FaRegComment, FaRegListAlt, FaTruck, FaUser, FaUsersCog, } from "react-icons/fa";
 import React from "react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { FaUsersViewfinder } from "react-icons/fa6";
+import { MdOutlineAutoGraph } from "react-icons/md";
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user } = useAuth();
+  const isAdmin = true;
+  const isUser = false;
+  const isDeliveryMan = false;
 
   return (
     <div className="bg-[#AFB9C5] w-full pt-2 min-h-screen">
@@ -90,12 +95,12 @@ const Dashboard = () => {
               </Button>
             </MenuHandler>
             <MenuList className="px-4 py-2">
-            <Typography variant="h6" color="black">
-              {user?.displayName}
-            </Typography>
-            <Typography color="black" className="text-xs">
-              {user?.email}
-            </Typography>
+              <Typography variant="h6" color="black">
+                {user?.displayName}
+              </Typography>
+              <Typography color="black" className="text-xs">
+                {user?.email}
+              </Typography>
             </MenuList>
           </Menu>
         </div>
@@ -119,65 +124,121 @@ const Dashboard = () => {
               {user?.email}
             </Typography>
           </div>
-          {/* user section */}
-          <div className="mx-4 lg:mx-12 mt-12 space-y-8">
-            {/* <NavLink
-              to="/dashboard/userHome"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex text-[#F5AB35] flex-row gap-6 items-center text-lg font-semibold"
-                  : "flex flex-row gap-6 items-center text-lg font-semibold text-white"
-              }
-            >
-              <FaHome />
-              User Home
-            </NavLink> */}
-            <NavLink
-              to="/dashboard/userProfile"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
-                  : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
-              }
-            >
-              <FaUser />
-              My Profile
-            </NavLink>
-            <NavLink
-              to="/dashboard/bookParcel"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex flex-row gap-4 lg:gap-6 items-center text-[#F5AB35] text-lg font-semibold"
-                  : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
-              }
-            >
-              <FaBook />
-              Book A Parcel
-            </NavLink>
-            <NavLink
-              to="/dashboard/myParcel"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
-                  : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
-              }
-            >
-              <FaTruck />
-              My Parcel
-            </NavLink>
-          </div>
-          {/* <hr className="my-8 border-blue-gray-50 w-48 mx-auto" /> */}
 
-          {/* home section */}
-          {/* <div className="mx-12 mt-12 space-y-8">
-            <NavLink
-              to="/"
-              className="flex flex-row gap-6 items-center text-lg font-semibold text-white"
-            >
-              <FaHome />
-              Home
-            </NavLink>
-          </div> */}
+          {/* admin section */}
+          {isAdmin && (
+            <div className="mx-4 lg:mx-8 mt-12 space-y-8">
+              <NavLink
+                to="/dashboard/allParcels"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaRegListAlt />
+                All Parcels
+              </NavLink>
+              <NavLink
+                to="/dashboard/allUsers"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex flex-row gap-4 lg:gap-6 items-center text-[#F5AB35] text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaUsersViewfinder />
+                All Users
+              </NavLink>
+              <NavLink
+                to="/dashboard/allDeliveryMan"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaUsersCog />
+                All Delivery Men
+              </NavLink>
+              <NavLink
+                to="/dashboard/statistics"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <MdOutlineAutoGraph />
+                Statistics
+              </NavLink>
+            </div>
+          )}
+          {/* user section */}
+          {isUser && (
+            <div className="mx-4 lg:mx-12 mt-12 space-y-8">
+              <NavLink
+                to="/dashboard/userProfile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaUser />
+                My Profile
+              </NavLink>
+              <NavLink
+                to="/dashboard/bookParcel"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex flex-row gap-4 lg:gap-6 items-center text-[#F5AB35] text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaBook />
+                Book A Parcel
+              </NavLink>
+              <NavLink
+                to="/dashboard/myParcel"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaTruck />
+                My Parcel
+              </NavLink>
+            </div>
+          )}
+          {/* delivery man section */}
+          {isDeliveryMan && (
+            <div className="mx-4 lg:mx-8 mt-12 space-y-8">
+              <NavLink
+                to="/dashboard/deliveryList"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaList />
+                My Delivery List
+              </NavLink>
+              <NavLink
+                to="/dashboard/reviews"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex flex-row gap-4 lg:gap-6 items-center text-[#F5AB35] text-lg font-semibold"
+                    : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+                }
+              >
+                <FaRegComment />
+                My Reviews
+              </NavLink>
+            </div>
+          )}
         </div>
         <div className="bg-[#D7DBE4] md:h-[630px] lg:h-[750px] w-full  rounded-br-2xl">
           <Outlet />
