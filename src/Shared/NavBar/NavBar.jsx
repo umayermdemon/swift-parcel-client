@@ -42,14 +42,10 @@ const NavBar = () => {
       </Typography>
       <Typography className="p-1 font-semibold">
         <a href="#" className="flex items-center">
-          Dashboard
-        </a>
-      </Typography>
-      <Typography className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
           Notification icon
         </a>
       </Typography>
+      
     </ul>
   );
   return (
