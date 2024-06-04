@@ -18,11 +18,12 @@ const Register = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
     const name = data.name;
     const email = data.email;
     const password = data.password;
     const photo = data.photoUrl;
+    const role=data.role
     createUser(email, password)
       .then((result) => {
         if (result.user) {
@@ -46,7 +47,7 @@ const Register = () => {
               const userInfo = {
                 name: name,
                 email: email,
-                roll: "User",
+                role: role,
               };
               axiosPublic.post("/users", userInfo).then((res) => {
                 if (res.data.insertedId) {
@@ -84,7 +85,7 @@ const Register = () => {
       <img
         src={loginBg}
         alt=""
-        className="h-[742px] relative lg:h-[911px] w-full lg:block object-cover"
+        className="min-h-screen relative lg:h-[911px] w-full block object-cover"
       />
       <div className="absolute top-12 lg:top-32 right-10 lg:right-80">
         <Card
@@ -151,6 +152,18 @@ const Register = () => {
                 required
                 {...register("photoUrl")}
               />
+              <select
+                label="Select Your Role"
+                required
+                {...register("role")}
+                className=" w-full mt-1 p-2 outline-none rounded-md bg-[#E6F5ED] border border-gray-400  focus:border-gray-500 focus:bg-[#E6F5ED] focus:ring-0"
+              >
+                <option disabled selected>
+                  Select Your Role
+                </option>
+                <option value="User">User</option>
+                <option value="Delivery Man">Delivery Man</option>
+              </select>
             </div>
 
             <Button
@@ -170,10 +183,12 @@ const Register = () => {
               </Link>
             </Typography>
           </form>
-        </Card>
-        <h1 className="text-xl font-bold text-center">Or Register With....</h1>
+          <h1 className="text-xl font-bold text-center">
+            Or Register With....
+          </h1>
 
-        <SocialLogin />
+          <SocialLogin />
+        </Card>
       </div>
     </div>
   );

@@ -9,12 +9,10 @@ const SocialLogin = () => {
   const { googleRegister, githubRegister, facebookRegister } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const location=useLocation()
-  console.log(location)
+  const location = useLocation();
   const handleGoogleRegister = () => {
     googleRegister()
       .then((result) => {
-        console.log(result.user);
         if (result.user) {
           const userInfo = {
             name: result.user?.displayName,
@@ -22,7 +20,6 @@ const SocialLogin = () => {
             role: "user",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
-            console.log(res)
             if (res) {
               const Toast = Swal.mixin({
                 toast: true,
@@ -37,7 +34,11 @@ const SocialLogin = () => {
               });
               Toast.fire({
                 icon: "success",
-                title: `${location.pathname==='/login'?'Logged in successfully':'Registered successfully'} `,
+                title: `${
+                  location.pathname === "/login"
+                    ? "Logged in successfully"
+                    : "Registered successfully"
+                } `,
               });
             }
           });
@@ -45,7 +46,6 @@ const SocialLogin = () => {
         }
       })
       .catch((error) => {
-        console.error(error);
         if (error) {
           const Toast = Swal.mixin({
             toast: true,
@@ -68,7 +68,6 @@ const SocialLogin = () => {
   const handleGithubRegister = () => {
     githubRegister()
       .then((result) => {
-        console.log(result.user);
         if (result.user) {
           const userInfo = {
             name: result.user?.displayName,
@@ -76,7 +75,6 @@ const SocialLogin = () => {
             role: "user",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
-            console.log(res)
             if (res) {
               const Toast = Swal.mixin({
                 toast: true,
@@ -91,7 +89,11 @@ const SocialLogin = () => {
               });
               Toast.fire({
                 icon: "success",
-                title: `${location.pathname==='/login'?'Logged in successfully':'Registered successfully'} `,
+                title: `${
+                  location.pathname === "/login"
+                    ? "Logged in successfully"
+                    : "Registered successfully"
+                } `,
               });
             }
           });
@@ -99,7 +101,6 @@ const SocialLogin = () => {
         }
       })
       .catch((error) => {
-        console.error(error);
         if (error) {
           const Toast = Swal.mixin({
             toast: true,
@@ -122,7 +123,6 @@ const SocialLogin = () => {
   const handleFacebookRegister = () => {
     facebookRegister()
       .then((result) => {
-        console.log(result.user);
         if (result.user) {
           const userInfo = {
             name: result.user?.displayName,
@@ -130,7 +130,7 @@ const SocialLogin = () => {
             role: "user",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
-            console.log(res)
+            console.log(res);
             if (res) {
               const Toast = Swal.mixin({
                 toast: true,
@@ -145,7 +145,11 @@ const SocialLogin = () => {
               });
               Toast.fire({
                 icon: "success",
-                title: `${location.pathname==='/login'?'Logged in successfully':'Registered successfully'} `,
+                title: `${
+                  location.pathname === "/login"
+                    ? "Logged in successfully"
+                    : "Registered successfully"
+                } `,
               });
             }
           });
@@ -153,7 +157,6 @@ const SocialLogin = () => {
         }
       })
       .catch((error) => {
-        console.error(error);
         if (error) {
           const Toast = Swal.mixin({
             toast: true,

@@ -20,7 +20,6 @@ const facebookProvider = new FacebookAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
-  console.log(user)
 
   const createUser = (email, password) => {
     setLoader(true);
@@ -38,22 +37,22 @@ const AuthProvider = ({ children }) => {
     setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const logOut=()=>{
-    return signOut(auth)
-  }
+  const logOut = () => {
+    return signOut(auth);
+  };
 
-  const googleRegister=()=>{
+  const googleRegister = () => {
     setLoader(true);
-    return signInWithPopup(auth,googleProvider)
-  }
-  const githubRegister=()=>{
+    return signInWithPopup(auth, googleProvider);
+  };
+  const githubRegister = () => {
     setLoader(true);
-    return signInWithPopup(auth,githubProvider)
-  }
-  const facebookRegister=()=>{
+    return signInWithPopup(auth, githubProvider);
+  };
+  const facebookRegister = () => {
     setLoader(true);
-    return signInWithPopup(auth,facebookProvider)
-  }
+    return signInWithPopup(auth, facebookProvider);
+  };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -73,7 +72,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     googleRegister,
     githubRegister,
-    facebookRegister
+    facebookRegister,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
