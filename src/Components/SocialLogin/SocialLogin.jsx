@@ -75,22 +75,25 @@ const SocialLogin = () => {
             email: result.user?.email,
             role: "user",
           };
-          axiosPublic.post("/users", userInfo)
-          .then(res=>console.log(res))
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully",
+          axiosPublic.post("/users", userInfo).then((res) => {
+            console.log(res)
+            if (res) {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+              Toast.fire({
+                icon: "success",
+                title: `${location.pathname==='/login'?'Logged in successfully':'Registered successfully'} `,
+              });
+            }
           });
           navigate("/");
         }
@@ -121,20 +124,30 @@ const SocialLogin = () => {
       .then((result) => {
         console.log(result.user);
         if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully",
+          const userInfo = {
+            name: result.user?.displayName,
+            email: result.user?.email,
+            role: "user",
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            console.log(res)
+            if (res) {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+              Toast.fire({
+                icon: "success",
+                title: `${location.pathname==='/login'?'Logged in successfully':'Registered successfully'} `,
+              });
+            }
           });
           navigate("/");
         }
