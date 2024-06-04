@@ -1,32 +1,79 @@
 import { Button, Input } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useAuth from "../../../../hooks/useAuth";
-import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import { useState } from "react";
 
 const BookParcel = () => {
   const { user } = useAuth();
-  const { register, handleSubmit, reset } = useForm();
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const bookedDate = `${date}-${month}-${year}`;
   const axiosPublic = useAxiosPublic();
+  const [parcelWeight, setParcelWeight] = useState("");
+  const [price, setPrice] = useState(0);
 
-  const onSubmit = (data) => {
+  const calculatePrice = (parcelWeight) => {
+    let price = 0;
+    if (parcelWeight === 1) {
+      price = 50;
+    } else if (parcelWeight === 2) {
+      price = 100;
+    } else if (parcelWeight > 2) {
+      price = 150;
+    }
+    setPrice(price);
+  };
+
+  const handleParcelWeightChange = e => {
+    const newWeight = parseFloat(e.target.value);
+    setParcelWeight(newWeight);
+    calculatePrice(newWeight);
+  };
+
+  const handleBookedForm = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const phoneNumber = form.phoneNumber.value;
+    const parcelDeliveryAddress = form.parcelDeliveryAddress.value;
+    const parcelType = form.parcelType.value;
+    const parcelWeight = form.parcelWeight.value;
+    const receiversName = form.receiversName.value;
+    const receiversPhoneNumber = form.receiversPhoneNumber.value;
+    const deliveryAddressLatitude = parseFloat(
+      form.deliveryAddressLatitude.value
+    );
+    const deliveryAddressLongitude = parseFloat(
+      form.deliveryAddressLongitude.value
+    );
+    const requestedDeliveryDate = form.requestedDeliveryDate.value;
+    const price = parseInt(form.price.value);
+    const bookingDate = bookedDate;
+    const status = "Pending";
     const parcelInfo = {
-      name: data.name,
-      email: data.email,
-      phoneNumber: data.phoneNumber,
-      parcelDeliveryAddress: data.parcelDeliveryAddress,
-      parcelType: data.parcelType,
-      parcelWeight: data.parcelWeight,
-      receiversName: data.receiversName,
-      receiversPhoneNumber: data.receiversPhoneNumber,
-      deliveryAddressLatitude: parseFloat(data.deliveryAddressLatitude),
-      deliveryAddressLongitude: parseFloat(data.deliveryAddressLongitude),
-      requestedDeliveryDate: data.requestedDeliveryDate,
-      price: parseInt(data.price),
-      status: "Pending",
+      name,
+      email,
+      phoneNumber,
+      parcelDeliveryAddress,
+      parcelType,
+      parcelWeight,
+      receiversName,
+      receiversPhoneNumber,
+      deliveryAddressLatitude,
+      deliveryAddressLongitude,
+      requestedDeliveryDate,
+      price,
+      status,
+      bookingDate,
     };
+    console.log(parcelInfo);
     axiosPublic.post("/parcels", parcelInfo).then((res) => {
+      console.log(res.data)
       if (res.data.insertedId) {
         const Toast = Swal.mixin({
           toast: true,
@@ -43,15 +90,15 @@ const BookParcel = () => {
           icon: "success",
           title: "Parcel Booked successfully",
         });
-        reset();
       }
+      form.reset()
     });
   };
   return (
     <div>
       <SectionTitle heading={"Book Your Parcel Now"} />
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleBookedForm}
         className="lg:max-w-4xl mx-4 mb-8 md:mb-0 lg:mx-auto space-y-4 md:space-y-6 lg:space-y-8 bg-white p-4 md:p-6 lg:p-8 rounded-md"
       >
         <div className="flex flex-col md:flex-row gap-4 md:gap-16">
@@ -63,7 +110,7 @@ const BookParcel = () => {
             placeholder="Type Here"
             defaultValue={user.displayName}
             readOnly
-            {...register("name")}
+            name="name"
           />
           <Input
             type="text"
@@ -73,7 +120,7 @@ const BookParcel = () => {
             placeholder="Type Here"
             defaultValue={user.email}
             readOnly
-            {...register("email")}
+            name="email"
           />
         </div>
         <div className="flex flex-col md:flex-row gap-4 md:gap-16">
@@ -83,7 +130,7 @@ const BookParcel = () => {
             size="lg"
             label="Phone"
             placeholder="Type Here"
-            {...register("phoneNumber")}
+            name="phoneNumber"
             required
           />
           <Input
@@ -92,18 +139,22 @@ const BookParcel = () => {
             size="lg"
             label="Parcel Type"
             placeholder="Type Here"
-            {...register("parcelType")}
+            name="parcelType"
             required
           />
         </div>
         <div className="flex flex-col md:flex-row gap-4 md:gap-16">
           <Input
             type="number"
-            variant="standard"
+            id="weight"
+            name="parcelWeight"
+            min="1"
+            label="Parcel Weight (kg)"
+            value={parcelWeight}
+            onChange={handleParcelWeightChange}
             size="lg"
-            label="Parcel Weight"
+            variant="standard"
             placeholder="Type Here"
-            {...register("parcelWeight")}
             required
           />
           <Input
@@ -112,7 +163,7 @@ const BookParcel = () => {
             size="lg"
             label="Receiver’s Name"
             placeholder="Type Here"
-            {...register("receiversName")}
+            name="receiversName"
             required
           />
         </div>
@@ -123,7 +174,7 @@ const BookParcel = () => {
             size="lg"
             label="Receiver's Phone Number"
             placeholder="Type Here"
-            {...register("receiversPhoneNumber")}
+            name="receiversPhoneNumber"
             required
           />
           <Input
@@ -132,7 +183,7 @@ const BookParcel = () => {
             size="lg"
             label="Parcel Delivery Address"
             placeholder="Type Here"
-            {...register("parcelDeliveryAddress")}
+            name="parcelDeliveryAddress"
             required
           />
         </div>
@@ -143,7 +194,7 @@ const BookParcel = () => {
             size="lg"
             label="Delivery Address Latitude"
             placeholder="Type Here"
-            {...register("deliveryAddressLatitude")}
+            name="deliveryAddressLatitude"
             required
           />
           <Input
@@ -152,7 +203,7 @@ const BookParcel = () => {
             size="lg"
             label="Delivery Address longitude"
             placeholder="Type Here"
-            {...register("deliveryAddressLongitude")}
+            name="deliveryAddressLongitude"
             required
           />
         </div>
@@ -163,16 +214,19 @@ const BookParcel = () => {
             size="lg"
             label="Requested Delivery Date"
             placeholder="Type Here"
-            {...register("requestedDeliveryDate")}
+            name="requestedDeliveryDate"
             required
           />
           <Input
             type="number"
-            variant="standard"
+            id="price"
+            name="price"
+            label="Price (Tk)"
+            value={price}
+            readOnly
             size="lg"
-            label="Price"
+            variant="standard"
             placeholder="Type Here"
-            {...register("price")}
             required
           />
         </div>

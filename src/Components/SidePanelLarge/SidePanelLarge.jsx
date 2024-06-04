@@ -5,8 +5,8 @@ import { NavLink } from "react-router-dom";
 
 
 const SidePanelLarge = () => {
-  const isAdmin = true;
-  const isUser = false;
+  const isAdmin = false;
+  const isUser = true;
   const isDeliveryMan =false;
   return (
     <div>

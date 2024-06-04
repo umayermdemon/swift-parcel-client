@@ -55,6 +55,7 @@ const Register = () => {
                 }
               });
               navigate("/login");
+              
             })
             .catch((error) => console.error(error));
         }
@@ -153,7 +154,6 @@ const Register = () => {
                 {...register("photoUrl")}
               />
               <select
-                label="Select Your Role"
                 required
                 {...register("role")}
                 className=" w-full mt-1 p-2 outline-none rounded-md bg-[#E6F5ED] border border-gray-400  focus:border-gray-500 focus:bg-[#E6F5ED] focus:ring-0"
