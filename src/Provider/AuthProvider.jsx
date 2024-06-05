@@ -21,7 +21,7 @@ const facebookProvider = new FacebookAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
-  const axiosPublic=useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password) => {
     setLoader(true);
@@ -59,18 +59,16 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if(currentUser){
-        const userInfo={email:currentUser.email}
-        axiosPublic.post('/jwt', userInfo)
-        .then(res=>{
-          console.log(res.data.token)
-          if(res.data.token){
-            localStorage.setItem('access-token', res.data.token)
+      if (currentUser) {
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo)
+        .then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
           }
-        })
-      }
-      else{
-        localStorage.removeItem('access-token')
+        });
+      } else {
+        localStorage.removeItem("access-token");
       }
       setLoader(false);
     });

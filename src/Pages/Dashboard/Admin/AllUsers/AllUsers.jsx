@@ -15,7 +15,6 @@ const TABLE_HEAD = [
 
 const AllUsers = () => {
  const [users,refetch]=useAllUsers()
-  console.log(users);
   return (
     <div>
       <SectionTitle heading={"All Users"} />

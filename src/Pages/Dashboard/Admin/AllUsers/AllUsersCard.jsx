@@ -8,7 +8,6 @@ import { FaUser } from "react-icons/fa";
 const AllUsersCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const { name, role, _id } = user || {};
-  console.log(user);
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
