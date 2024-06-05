@@ -1,7 +1,7 @@
 import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const axiosSecure = axios.create({
   baseURL: "http://localhost:5000",
@@ -17,7 +17,6 @@ const useAxiosSecure = () => {
       return config;
     },
     function (error) {
-      // Do something with request error
       return Promise.reject(error);
     }
   );
@@ -25,15 +24,27 @@ const useAxiosSecure = () => {
     function (response) {
       return response;
     },
-    (error) => {
+    async (error) => {
       const status = error.response.status;
       if (status === 401 || status === 403) {
-        logOut();
+        await logOut();
         navigate("/login");
-        //
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "info",
+          title: "Your Session is expired. Please Login",
+        });
       }
-      toast.error("Your Session is expired. Please Login"
-    );
 
       return Promise.reject(error);
     }
