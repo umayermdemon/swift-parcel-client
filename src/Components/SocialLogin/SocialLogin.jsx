@@ -17,7 +17,7 @@ const SocialLogin = () => {
           const userInfo = {
             name: result.user?.displayName,
             email: result.user?.email,
-            role: "user",
+            role: "User",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res) {
@@ -72,7 +72,7 @@ const SocialLogin = () => {
           const userInfo = {
             name: result.user?.displayName,
             email: result.user?.email,
-            role: "user",
+            role: "User",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res) {
@@ -127,7 +127,7 @@ const SocialLogin = () => {
           const userInfo = {
             name: result.user?.displayName,
             email: result.user?.email,
-            role: "user",
+            role: "User",
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             console.log(res);
