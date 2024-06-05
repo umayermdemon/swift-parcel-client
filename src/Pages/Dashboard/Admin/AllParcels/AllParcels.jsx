@@ -15,7 +15,6 @@ const TABLE_HEAD = [
 
 const AllParcels = () => {
   const [parcels] = useAllPArcels();
-  console.log(parcels);
   return (
     <div>
       <SectionTitle heading="ALL Parcels" />

@@ -21,7 +21,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
     axiosSecure.patch(`/users/admin/${id}`).then((res) => {
       refetch();
       if (res.data.modifiedCount > 0) {
-        toast.success(`${name} set as admin`);
+        toast.success(`${name} set as an Admin`);
       }
     });
   };
@@ -29,7 +29,15 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
     axiosSecure.patch(`/users/user/${id}`).then((res) => {
       refetch();
       if (res.data.modifiedCount > 0) {
-        toast.success(`${name} set as user`);
+        toast.success(`${name} set as a User`);
+      }
+    });
+  };
+  const handleDeliveryMan = (id) => {
+    axiosSecure.patch(`/users/deliveryMan/${id}`).then((res) => {
+      refetch();
+      if (res.data.modifiedCount > 0) {
+        toast.success(`${name} set as a Delivery Man`);
       }
     });
   };
@@ -67,7 +75,10 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
           color="blue-gray"
           className="font-normal flex flex-row items-center justify-center gap-1"
         >
-          {role} {role === "Admin" && <RiAdminFill />}{role === "User" && <FaUser/>}{role === "Delivery Man" && <TbTruckDelivery/>}
+          {role} 
+          {role === "Admin" && <RiAdminFill />}
+          {role === "User" && <FaUser className="text-gray-400"/>}
+          {role === "Delivery Man" && <TbTruckDelivery />}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
@@ -79,14 +90,16 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={classes}>
         <Typography color="blue-gray">
-          <TbTruckDelivery className="text-xl mx-auto" />
+          <button onClick={() => handleDeliveryMan(_id)}>
+            <TbTruckDelivery className="text-xl mx-auto" />
+          </button>
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
-         <button onClick={()=>handleUser(_id)}>
-         <FaUser className="text-xl mx-auto" />
-         </button>
+          <button onClick={() => handleUser(_id)}>
+            <FaUser className="text-lg mx-auto " />
+          </button>
         </Typography>
       </td>
     </tr>
