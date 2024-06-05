@@ -13,7 +13,7 @@
     "deliveryAddressLongitude": 90.416705,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-01"
   },
   {
     "name": "MD. EMON MIAH",
@@ -29,11 +29,11 @@
     "deliveryAddressLongitude": 90.426026,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-01"
   },
   {
-    "name": "MD. EMON MIAH",
-    "email": "mamudmdemon@gmail.com",
+    "name": "Umayer Md Emon",
+    "email": "umayermdemon@gmail.com",
     "phoneNumber": "+8801712345681",
     "parcelType": "Books",
     "parcelWeight": 4,
@@ -45,11 +45,11 @@
     "deliveryAddressLongitude": 90.374457,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-01"
   },
   {
-    "name": "MD. EMON MIAH",
-    "email": "mamudmdemon@gmail.com",
+    "name": "USAMA AL FATIH",
+    "email": "usama@gmail.com",
     "phoneNumber": "+8801712345682",
     "parcelType": "Groceries",
     "parcelWeight": 2,
@@ -61,11 +61,11 @@
     "deliveryAddressLongitude": 90.40584,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-01"
   },
   {
-    "name": "MD. EMON MIAH",
-    "email": "mamudmdemon@gmail.com",
+    "name": "Umayer Md Emon",
+    "email": "umayermdemon@gmail.com",
     "phoneNumber": "+8801712345683",
     "parcelType": "Toys",
     "parcelWeight": 1,
@@ -77,11 +77,11 @@
     "deliveryAddressLongitude": 90.365713,
     "price": 50,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
-    "name": "MD. EMON MIAH",
-    "email": "mamudmdemon@gmail.com",
+    "name": "USAMA AL FATIH",
+    "email": "usama@gmail.com",
     "phoneNumber": "+8801712345684",
     "parcelType": "Medicines",
     "parcelWeight": 3,
@@ -93,7 +93,7 @@
     "deliveryAddressLongitude": 90.396882,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
     "name": "MD. EMON MIAH",
@@ -109,11 +109,11 @@
     "deliveryAddressLongitude": 90.360132,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
-    "name": "MD. EMON MIAH",
-    "email": "mamudmdemon@gmail.com",
+    "name": "USAMA AL FATIH",
+    "email": "usama@gmail.com",
     "phoneNumber": "+8801712345686",
     "parcelType": "Kitchenware",
     "parcelWeight": 2,
@@ -125,7 +125,7 @@
     "deliveryAddressLongitude": 90.391239,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
     "name": "MD. EMON MIAH",
@@ -141,7 +141,7 @@
     "deliveryAddressLongitude": 90.421234,
     "price": 50,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
     "name": "MD. EMON MIAH",
@@ -157,7 +157,7 @@
     "deliveryAddressLongitude": 90.369345,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
     "name": "Umayer Md Emon",
@@ -173,7 +173,7 @@
     "deliveryAddressLongitude": 90.414567,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-02"
   },
   {
     "name": "Umayer Md Emon",
@@ -189,7 +189,7 @@
     "deliveryAddressLongitude": 90.4289,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "Umayer Md Emon",
@@ -205,7 +205,7 @@
     "deliveryAddressLongitude": 90.354789,
     "price": 50,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "Umayer Md Emon",
@@ -221,7 +221,7 @@
     "deliveryAddressLongitude": 90.43789,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "Umayer Md Emon",
@@ -237,7 +237,7 @@
     "deliveryAddressLongitude": 90.423456,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "Umayer Md Emon",
@@ -253,7 +253,7 @@
     "deliveryAddressLongitude": 90.453214,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "USAMA AL FATIH",
@@ -269,7 +269,7 @@
     "deliveryAddressLongitude": 90.489345,
     "price": 50,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "USAMA AL FATIH",
@@ -285,7 +285,7 @@
     "deliveryAddressLongitude": 90.487123,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-03"
   },
   {
     "name": "HASAN AL BASRI",
@@ -301,7 +301,7 @@
     "deliveryAddressLongitude": 90.398567,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-04"
   },
   {
     "name": "HASAN AL BASRI",
@@ -317,7 +317,7 @@
     "deliveryAddressLongitude": 90.398123,
     "price": 150,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-04"
   },
   {
     "name": "HASAN AL BASRI",
@@ -333,6 +333,6 @@
     "deliveryAddressLongitude": 90.403456,
     "price": 100,
     "status": "Pending",
-    "bookingDate": "4-6-2024"
+    "bookingDate": "2024-06-04"
   }
 ]

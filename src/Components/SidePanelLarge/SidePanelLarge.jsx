@@ -5,14 +5,14 @@ import { NavLink } from "react-router-dom";
 
 
 const SidePanelLarge = () => {
-  const isAdmin = false;
-  const isUser = true;
+  const isAdmin = true;
+  const isUser = false;
   const isDeliveryMan =false;
   return (
     <div>
        {/* admin section */}
        {isAdmin && (
-            <div className="mx-4 lg:mx-8 mt-12 space-y-8">
+            <div className="mx-4 lg:mx-8 mb-8 mt-12 space-y-8">
               <NavLink
                 to="/dashboard/allParcels"
                 className={({ isActive }) =>

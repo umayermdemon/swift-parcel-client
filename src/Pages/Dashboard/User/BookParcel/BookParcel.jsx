@@ -8,13 +8,13 @@ import { useState } from "react";
 const BookParcel = () => {
   const { user } = useAuth();
   const today = new Date();
-  const month = today.getMonth() + 1;
+  const month = (today.getMonth() + 1).toString().padStart(2, '0');
+  const date = today.getDate().toString().padStart(2, '0');
   const year = today.getFullYear();
-  const date = today.getDate();
-  const bookedDate = `${date}-${month}-${year}`;
+  const bookedDate = `${year}-${month}-${date}`;
   const axiosPublic = useAxiosPublic();
   const [parcelWeight, setParcelWeight] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
 
   const calculatePrice = (parcelWeight) => {
     let price = 0;

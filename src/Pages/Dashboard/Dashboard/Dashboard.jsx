@@ -75,7 +75,7 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
       </div>
       <div className="flex flex-row lg:pb-12 px-2 md:px-4 lg:px-48">
-        <div className="h-[630px] lg:h-[750px] bg-[#0E3557] w-72 lg:w-80 hidden lg:block  rounded-bl-2xl">
+        <div className=" bg-[#0E3557] w-72 lg:w-80 hidden lg:block  rounded-bl-2xl">
           <div className="my-4 flex flex-col items-center justify-center">
             <img
               src={user?.photoURL}
@@ -92,12 +92,15 @@ const Dashboard = () => {
 
           <SidePanelLarge />
         </div>
-        <div className="bg-[#D7DBE4] md:h-[630px] lg:h-[750px] w-full  rounded-br-2xl">
+        <div className="bg-[#D7DBE4] p-8  w-full  rounded-br-2xl">
           <Outlet />
         </div>
       </div>
     </div>
   );
 };
+
+//h-[630px] lg:h-[750px]
+//h-[630px] lg:h-[750px]
 
 export default Dashboard;
