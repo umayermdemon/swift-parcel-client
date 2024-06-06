@@ -4,12 +4,14 @@ import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const BookParcel = () => {
   const { user } = useAuth();
+  console.log(user.email);
   const today = new Date();
-  const month = (today.getMonth() + 1).toString().padStart(2, '0');
-  const date = today.getDate().toString().padStart(2, '0');
+  const month = (today.getMonth() + 1).toString().padStart(2, "0");
+  const date = today.getDate().toString().padStart(2, "0");
   const year = today.getFullYear();
   const bookedDate = `${year}-${month}-${date}`;
   const axiosPublic = useAxiosPublic();
@@ -28,7 +30,7 @@ const BookParcel = () => {
     setPrice(price);
   };
 
-  const handleParcelWeightChange = e => {
+  const handleParcelWeightChange = (e) => {
     const newWeight = parseFloat(e.target.value);
     setParcelWeight(newWeight);
     calculatePrice(newWeight);
@@ -71,27 +73,40 @@ const BookParcel = () => {
       status,
       bookingDate,
     };
+    if (phoneNumber.length < 11 || phoneNumber.length > 11) {
+      return toast.warn("Please provide valid Phone Number");
+    }
+    if (receiversPhoneNumber.length < 11 || receiversPhoneNumber.length > 11) {
+      return toast.warn("Please provide valid Phone Number");
+    }
     console.log(parcelInfo);
     axiosPublic.post("/parcels", parcelInfo).then((res) => {
-      console.log(res.data)
+      console.log(res.data);
       if (res.data.insertedId) {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Parcel Booked successfully",
+        const userPhone = {
+          phoneNumber: phoneNumber,
+        };
+        axiosPublic.put(`/users/${user?.email}`, userPhone).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              },
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Parcel Booked successfully",
+            });
+          }
         });
       }
-      form.reset()
+      form.reset();
     });
   };
   return (

@@ -11,17 +11,15 @@ import {
 import { FaUsersViewfinder } from "react-icons/fa6";
 import { MdOutlineAutoGraph } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import useAdmin from "../../hooks/useAdmin";
+import useDeliveryMan from "../../hooks/useDeliveryMan";
 
 const SidePanelSmall = () => {
-  const isAdmin = false;
-  const isUser = false;
-  const isDeliveryMan = true;
+  const [isAdmin] = useAdmin();
+  const [isDeliveryMan] = useDeliveryMan();
   return (
     <div>
-      {/* small device dashboard extra design start */}
-      {/* admin section */}
-
-      {isAdmin && (
+      {isAdmin ? (
         <div>
           <div className="flex flex-row gap-8 ml-4">
             <NavLink
@@ -34,7 +32,7 @@ const SidePanelSmall = () => {
             >
               <Tooltip content="All Parcels">
                 <p>
-                  <FaRegListAlt className="text-xl"/>
+                  <FaRegListAlt className="text-xl" />
                 </p>
               </Tooltip>
             </NavLink>
@@ -48,7 +46,7 @@ const SidePanelSmall = () => {
             >
               <Tooltip content="All Users">
                 <p>
-                  <FaUsersViewfinder className="text-xl"/>
+                  <FaUsersViewfinder className="text-xl" />
                 </p>
               </Tooltip>
             </NavLink>
@@ -62,7 +60,7 @@ const SidePanelSmall = () => {
             >
               <Tooltip content="All Delivery Men">
                 <p>
-                  <FaUsersCog className="text-xl"/>
+                  <FaUsersCog className="text-xl" />
                 </p>
               </Tooltip>
             </NavLink>
@@ -76,16 +74,40 @@ const SidePanelSmall = () => {
             >
               <Tooltip content="Statistics">
                 <p>
-                  <MdOutlineAutoGraph className="text-xl"/>
+                  <MdOutlineAutoGraph className="text-xl" />
                 </p>
               </Tooltip>
             </NavLink>
           </div>
         </div>
-      )}
-
-      {/* user section */}
-      {isUser && (
+      ) : isDeliveryMan ? (
+        <div>
+          <div className="flex flex-row gap-4 ml-4">
+            <NavLink
+              to="/dashboard/deliveryList"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex text-[#F5AB35] flex-row gap-1  items-center text-sm font-semibold"
+                  : "flex flex-row gap-1  items-center text-sm font-semibold text-white"
+              }
+            >
+              <FaList />
+              My Delivery List
+            </NavLink>
+            <NavLink
+              to="/dashboard/reviews"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex flex-row gap-1  items-center text-[#F5AB35] text-sm font-semibold"
+                  : "flex flex-row gap-1  items-center text-sm font-semibold text-white"
+              }
+            >
+              <FaRegComment />
+              My Reviews
+            </NavLink>
+          </div>
+        </div>
+      ) : (
         <div>
           <div className="flex flex-row gap-4 ml-4">
             <NavLink
@@ -120,36 +142,6 @@ const SidePanelSmall = () => {
             >
               <FaTruck />
               My Parcel
-            </NavLink>
-          </div>
-        </div>
-      )}
-
-      {/* delivery man section */}
-      {isDeliveryMan && (
-        <div>
-          <div className="flex flex-row gap-4 ml-4">
-            <NavLink
-              to="/dashboard/deliveryList"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex text-[#F5AB35] flex-row gap-1  items-center text-sm font-semibold"
-                  : "flex flex-row gap-1  items-center text-sm font-semibold text-white"
-              }
-            >
-              <FaList />
-              My Delivery List
-            </NavLink>
-            <NavLink
-              to="/dashboard/reviews"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex flex-row gap-1  items-center text-[#F5AB35] text-sm font-semibold"
-                  : "flex flex-row gap-1  items-center text-sm font-semibold text-white"
-              }
-            >
-              <FaRegComment />
-              My Reviews
             </NavLink>
           </div>
         </div>

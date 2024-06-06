@@ -4,16 +4,17 @@ import { TbTruckDelivery } from "react-icons/tb";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
+// import useAllPArcels from "../../../../hooks/useAllPArcels";
 
 const AllUsersCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
-  const { name, role, _id } = user || {};
+  const { name, role, _id,phoneNumber } = user || {};
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
 
   //  const [parcels]=useAllPArcels()
-  //  const filtered= parcels.filter((parcel)=>(parcel.email==='mamudmdemon@gmail.com'))
+  //  const filtered= parcels.find((parcel)=>(parcel.email===email))
   //  console.log(filtered)
 
   const handleAdmin = (id) => {
@@ -21,14 +22,6 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       refetch();
       if (res.data.modifiedCount > 0) {
         toast.success(`${name} set as an Admin`);
-      }
-    });
-  };
-  const handleUser = (id) => {
-    axiosSecure.patch(`/users/user/${id}`).then((res) => {
-      refetch();
-      if (res.data.modifiedCount > 0) {
-        toast.success(`${name} set as a User`);
       }
     });
   };
@@ -49,7 +42,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography variant="small" color="blue-gray" className="font-normal">
-          phone
+          {phoneNumber}
         </Typography>
       </td>
       <td className={classes}>
@@ -94,13 +87,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
           </button>
         </Typography>
       </td>
-      <td className={`${classes} bg-blue-gray-50/50`}>
-        <Typography color="blue-gray">
-          <button onClick={() => handleUser(_id)}>
-            <FaUser className="text-lg mx-auto " />
-          </button>
-        </Typography>
-      </td>
+     
     </tr>
   );
 };

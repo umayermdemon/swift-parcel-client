@@ -10,7 +10,6 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, Outlet } from "react-router-dom";
 import { FaHome} from "react-icons/fa";
 import React from "react";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import SidePanelLarge from "../../../Components/SidePanelLarge/SidePanelLarge";
 import SidePanelSmall from "../../../Components/SidePanelSmall/SidePanelSmall";
 
@@ -51,12 +50,7 @@ const Dashboard = () => {
                   className="border border-gray-900 p-0.5"
                   src={user?.photoURL}
                 />
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`h-3 w-3 transition-transform ${
-                    isMenuOpen ? "rotate-180" : ""
-                  }`}
-                />
+               
               </Button>
             </MenuHandler>
             <MenuList className="px-4 py-2">
@@ -92,7 +86,7 @@ const Dashboard = () => {
 
           <SidePanelLarge />
         </div>
-        <div className="bg-[#D7DBE4] p-8  w-full  rounded-br-2xl">
+        <div className="bg-[#D7DBE4] h-[630px] lg:h-[750px] p-2 lg:p-8  w-full  rounded-br-2xl">
           <Outlet />
         </div>
       </div>
