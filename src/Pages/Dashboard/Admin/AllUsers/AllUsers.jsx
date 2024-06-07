@@ -2,7 +2,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useAllUsers from "../../../../hooks/useAllUsers";
 import AllUsersCard from "./AllUsersCard";
-import Pagination from "../../../../Components/Pagination/Pagination";
+// import Pagination from "../../../../Components/Pagination/Pagination";
 const TABLE_HEAD = [
   "Name",
   "Phone Number",
@@ -56,7 +56,7 @@ const AllUsers = () => {
           </Card>
         )}
       </div>
-      <Pagination/>
+      {/* <Pagination/> */}
     </div>
   );
 };

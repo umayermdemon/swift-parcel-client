@@ -17,7 +17,7 @@ const SidePanelLarge = () => {
   const [isAdmin] = useAdmin();
   const [isDeliveryMan] = useDeliveryMan();
   return (
-    <div>
+    <div className="pb-12">
       {isAdmin ? (
         <div className="mx-4 lg:mx-8 mb-8 mt-12 space-y-8">
           <NavLink

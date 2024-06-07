@@ -64,8 +64,7 @@ export const router = createBrowserRouter([
       // admin route
       {
         path: "allParcels",
-        element: <AllParcels />,
-        loader: () => "http://localhost:5000/parcelsCount",
+        element: <AllParcels />
       },
       {
         path: "allUsers",

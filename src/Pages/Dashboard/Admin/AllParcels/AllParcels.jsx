@@ -1,15 +1,9 @@
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
-import {
-  ButtonGroup,
-  Card,
-  IconButton,
-  Typography,
-} from "@material-tailwind/react";
-import useAllPArcels from "../../../../hooks/useAllPArcels";
-import { FaEdit } from "react-icons/fa";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/16/solid";
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Card, Typography } from "@material-tailwind/react";
+import useAllParcels from "../../../../hooks/useAllParcels";
+// import { FaEdit } from "react-icons/fa";
+import ManageButtonModal from "../../../../Components/ManageButtonModal/ManageButtonModal";
+import { useState } from "react";
 
 const TABLE_HEAD = [
   "User’s Name",
@@ -22,25 +16,10 @@ const TABLE_HEAD = [
 ];
 
 const AllParcels = () => {
-  const [parcels] = useAllPArcels();
-  const [active, setActive] = React.useState(1);
-  const {count}=useLoaderData()
-
-  const getItemProps = (index) => ({
-    className: active === index ? "bg-gray-100 text-gray-900" : "",
-    onClick: () => setActive(index),
-  });
-
-  const next = () => {
-    if (active === 5) return;
-
-    setActive(active + 1);
-  };
-
-  const prev = () => {
-    if (active === 1) return;
-
-    setActive(active - 1);
+  const [parcels, refetch] = useAllParcels();
+  const [bookingId, setBookingId] = useState(null);
+  const handleManage = (id) => {
+    setBookingId(id);
   };
 
   return (
@@ -49,7 +28,7 @@ const AllParcels = () => {
       <div className="max-w-6xl mx-2 lg:mx-auto">
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
-            Total Parcels: {parcels.length}
+            Total Parcels:{parcels.length}
           </h2>
         </div>
         {parcels.length > 0 && (
@@ -83,6 +62,7 @@ const AllParcels = () => {
                       requestedDeliveryDate,
                       price,
                       status,
+                      _id,
                     },
                     index
                   ) => {
@@ -90,9 +70,8 @@ const AllParcels = () => {
                     const classes = isLast
                       ? "p-4 text-center"
                       : "p-4 text-center border-b  border-blue-gray-50";
-
                     return (
-                      <tr key={name}>
+                      <tr key={_id}>
                         <td className={classes}>
                           <Typography
                             variant="small"
@@ -148,7 +127,11 @@ const AllParcels = () => {
                             href="#"
                             variant="small"
                             color="blue-gray"
-                            className="font-medium"
+                            className={
+                              status === "Pending"
+                                ? "bg-orange-300 p-1 rounded-md"
+                                : "bg-green-300 p-1 rounded-md text-white"
+                            }
                           >
                             {status}
                           </Typography>
@@ -161,8 +144,8 @@ const AllParcels = () => {
                             color="blue-gray"
                             className="font-medium text-center"
                           >
-                            <button>
-                              <FaEdit className="text-xl" />
+                            <button onClick={() => handleManage(_id)}>
+                              <ManageButtonModal bookingId={bookingId} refetch={refetch}/>
                             </button>
                           </Typography>
                         </td>
@@ -174,21 +157,6 @@ const AllParcels = () => {
             </table>
           </Card>
         )}
-        <div className="mt-4 flex   justify-center">
-          <ButtonGroup variant="outlined">
-            <IconButton onClick={prev}>
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
-            </IconButton>
-            <IconButton {...getItemProps(1)}>1</IconButton>
-            <IconButton {...getItemProps(2)}>2</IconButton>
-            <IconButton {...getItemProps(3)}>3</IconButton>
-            <IconButton {...getItemProps(4)}>4</IconButton>
-            <IconButton {...getItemProps(5)}>5</IconButton>
-            <IconButton onClick={next}>
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </IconButton>
-          </ButtonGroup>
-        </div>
       </div>
     </div>
   );

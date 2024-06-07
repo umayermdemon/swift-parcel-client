@@ -10,6 +10,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { createUser, updateUSerProfile, logOut } = useAuth();
@@ -23,39 +24,44 @@ const Register = () => {
     const email = data.email;
     const password = data.password;
     const photo = data.photoUrl;
-    const role=data.role
+    const phoneNumber = data.phoneNumber;
+    const role = data.role;
+    if (phoneNumber.length < 11 || phoneNumber.length > 11) {
+      return toast.warn("Please provide valid Phone Number");
+    }
     createUser(email, password)
       .then((result) => {
         if (result.user) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Registered successfully. Please Login",
-          });
           updateUSerProfile(name, photo)
             .then(() => {
               const userInfo = {
                 name: name,
                 email: email,
+                phoneNumber: phoneNumber,
                 role: role,
               };
               axiosPublic.post("/users", userInfo).then((res) => {
-                if (res.data.insertedId) {
+                if (res) {
+                  console.log(res)
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    },
+                  });
+                  Toast.fire({
+                    icon: "success",
+                    title: "Registered successfully. Please Login",
+                  });
                   logOut();
                 }
               });
               navigate("/login");
-              
             })
             .catch((error) => console.error(error));
         }
@@ -88,7 +94,7 @@ const Register = () => {
         alt=""
         className="min-h-screen relative lg:h-[911px] w-full block object-cover"
       />
-      <div className="absolute top-12 lg:top-32 right-10 lg:right-80">
+      <div className="absolute top-2 lg:top-12  right-10 lg:right-80">
         <Card
           color="transparent"
           shadow={false}
@@ -97,20 +103,22 @@ const Register = () => {
           <Link to="/">
             <Typography className=" flex items-center justify-center mb-4 gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
               <img src={logo} alt="" className="w-16" />
-              <div className="flex items-center md:text-4xl">
-                <p className="text-5xl md:text-7xl">S</p>
+              <div className="flex items-center lg:text-4xl">
+                <p className="text-5xl lg:text-7xl">S</p>
                 <sub>wift</sub>
               </div>
             </Typography>
           </Link>
           <Typography
-            variant="h2"
             color="blue-gray"
-            className="text-center text-[#0B2D42] font-bold"
+            className="text-center text-[#0B2D42] text-2xl lg:text-4xl font-bold"
           >
             Register
           </Typography>
-          <Typography color="gray" className="mt-1 text-center font-medium">
+          <Typography
+            color="gray"
+            className="mt-1 text-center text-sm md:text-base font-medium"
+          >
             Nice to meet you! Enter your details to register.
           </Typography>
           <form
@@ -152,6 +160,13 @@ const Register = () => {
                 label="Enter Photo Url"
                 required
                 {...register("photoUrl")}
+              />
+              <Input
+                type="number"
+                size="lg"
+                label="Enter Your Phone Number"
+                required
+                {...register("phoneNumber")}
               />
               <select
                 required

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
 
-const useAllPArcels = () => {
+const useAllParcels = () => {
   const axiosSecure = useAxiosSecure();
   const { data: parcels = [] , refetch} = useQuery({
     queryKey: ["parcels"],
@@ -14,4 +14,4 @@ const useAllPArcels = () => {
   return [parcels, refetch]
 };
 
-export default useAllPArcels;
+export default useAllParcels;
