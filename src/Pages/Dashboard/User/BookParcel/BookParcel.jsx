@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 const BookParcel = () => {
   const { user } = useAuth();
-  console.log(user.email);
   const today = new Date();
   const month = (today.getMonth() + 1).toString().padStart(2, "0");
   const date = today.getDate().toString().padStart(2, "0");

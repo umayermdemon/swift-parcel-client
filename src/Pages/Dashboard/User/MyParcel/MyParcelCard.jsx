@@ -1,15 +1,12 @@
 import { Typography } from "@material-tailwind/react";
-import { toast } from "react-toastify";
-import useBookedParcel from "../../../../hooks/useBookedParcel";
-import { FaEdit } from "react-icons/fa";
+// import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+// import { toast } from "react-toastify";
 import { MdOutlineCancel, MdReviews } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
-import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import MyParcelUpdateModal from "../../../../Components/MyParcelUpdateModal/MyParcelUpdateModal";
 
-const MyParcelCard = ({ user, isLast, refetch }) => {
-  const axiosPublic = useAxiosPublic();
-  const [bookedParcel] = useBookedParcel();
-  console.log(bookedParcel);
+const MyParcelCard = ({ user, isLast,refetch }) => {
+  // const axiosSecure = useAxiosSecure();
   const {
     parcelType,
     requestedDeliveryDate,
@@ -22,22 +19,18 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
+
   const handleUpdate = (id) => {
-    axiosPublic.patch(`/parcels/${id}`).then((res) => {
-      refetch();
-      if (res.data.modifiedCount > 0) {
-        toast.success(`set as an Admin`);
-      }
-    });
+    console.log(id)
   };
-  const handleDeliveryMan = (id) => {
-    axiosPublic.patch(`/users/deliveryMan/${id}`).then((res) => {
-      refetch();
-      if (res.data.modifiedCount > 0) {
-        toast.success(`set as a Delivery Man`);
-      }
-    });
-  };
+  // const handleDeliveryMan = (id) => {
+  //   axiosSecure(`/users/deliveryMan/${id}`).then((res) => {
+  //     refetch();
+  //     if (res.data.modifiedCount > 0) {
+  //       toast.success(`set as a Delivery Man`);
+  //     }
+  //   });
+  // };
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -91,16 +84,19 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
         </Typography>
       </td>
       <td className={classes}>
-        <Typography color="blue-gray">
-          <button onClick={() => handleUpdate(_id)}>
-            <FaEdit className="text-xl" />
-          </button>
+        <Typography color="blue-gray" >
+            <button onClick={()=>handleUpdate(_id)}>
+            <MyParcelUpdateModal status={status} _id={_id} user={user} refetch={refetch} />
+            </button>
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
-          <button onClick={() => handleDeliveryMan(_id)}>
+          {/* <button onClick={() => handleDeliveryMan(_id)}>
             <MdOutlineCancel className="text-xl mx-auto" />
+          </button> */}
+          <button>
+            <MdOutlineCancel className="text-xl text-red-500 mx-auto" />
           </button>
         </Typography>
       </td>
@@ -113,7 +109,7 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
-          <button onClick={() => handleDeliveryMan(_id)}>
+          <button>
             <RiSecurePaymentFill className="text-xl mx-auto" />
           </button>
         </Typography>
