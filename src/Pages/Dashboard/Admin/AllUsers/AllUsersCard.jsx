@@ -4,10 +4,13 @@ import { TbTruckDelivery } from "react-icons/tb";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
+import useBookedParcel from "../../../../hooks/useBookedParcel";
 // import useAllPArcels from "../../../../hooks/useAllPArcels";
 
 const AllUsersCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
+  const [bookedParcel]=useBookedParcel()
+  console.log(bookedParcel)
   const { name, role, _id,phoneNumber } = user || {};
   const classes = isLast
     ? "p-4 text-center"
@@ -47,7 +50,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={classes}>
         <Typography variant="small" color="blue-gray" className="font-normal">
-          booked parcel count
+          {bookedParcel.length}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>

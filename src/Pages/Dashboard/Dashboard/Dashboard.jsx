@@ -8,27 +8,42 @@ import {
 } from "@material-tailwind/react";
 import useAuth from "../../../hooks/useAuth";
 import { Link, Outlet } from "react-router-dom";
-import { FaHome} from "react-icons/fa";
+import { FaHome, FaUser } from "react-icons/fa";
 import React from "react";
 import SidePanelLarge from "../../../Components/SidePanelLarge/SidePanelLarge";
 import SidePanelSmall from "../../../Components/SidePanelSmall/SidePanelSmall";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { RiAdminFill } from "react-icons/ri";
+import { TbTruckDelivery } from "react-icons/tb";
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: users } = useQuery({
+    queryKey: [user?.email, "users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/user/${user?.email}`);
+      return res.data;
+    },
+  });
+  console.log(users);
 
   return (
     <div className="bg-[#AFB9C5] w-full pt-4 md:pt-12 lg:pt-5 min-h-screen">
-      <div className="mx-2 md:mx-4 lg:mx-48 h-12  flex items-center justify-between  rounded-tl-2xl bg-[#0E3557] rounded-tr-2xl">
-        <Link to="/">
-          <Typography className=" my-2 px-1 ml-4 lg:ml-28 text-xl md:text-3xl bg-[#AFB9C5] rounded-sm cursor-pointer text-[#0B2D42]">
-            <FaHome />
-          </Typography>
-        </Link>
+      <div className="mx-2 md:mx-4 lg:mx-48 h-12 lg:pr-12 flex items-center justify-between  rounded-tl-2xl bg-[#0E3557] rounded-tr-2xl">
+        <div>
+          <Link to="/">
+            <Typography className=" my-2 px-1 ml-4 lg:ml-28 text-xl md:text-3xl bg-[#AFB9C5] rounded-sm cursor-pointer text-[#0B2D42]">
+              <FaHome />
+            </Typography>
+          </Link>
+        </div>
 
         <div className="block lg:hidden">
-          <SidePanelSmall/>
-
+          <SidePanelSmall />
         </div>
 
         <div className="block lg:hidden">
@@ -50,18 +65,46 @@ const Dashboard = () => {
                   className="border border-gray-900 p-0.5"
                   src={user?.photoURL}
                 />
-               
               </Button>
             </MenuHandler>
             <MenuList className="px-4 py-2">
               <Typography variant="h6" color="black">
                 {user?.displayName}
               </Typography>
+              <Typography
+                color="black"
+                className="text-sm font-bold flex gap-1 items-center"
+              >
+                {users?.role === "Admin" && <RiAdminFill />}
+                {users?.role === "User" && <FaUser />}
+                {users?.role === "Delivery Man" && <TbTruckDelivery />}
+                {users?.role}
+              </Typography>
               <Typography color="black" className="text-xs">
                 {user?.email}
               </Typography>
             </MenuList>
           </Menu>
+        </div>
+        <div className="hidden lg:block">
+          <div className="flex items-center gap-2">
+            <Avatar
+            variant="circular"
+            size="sm"
+            alt="tania andrew"
+            className="border border-gray-900 p-0.5"
+            src={user?.photoURL}
+          />
+          <Typography
+            color="black"
+            className="text-sm font-bold text-white flex gap-1 items-center"
+          >
+            {users?.role === "Admin" && <RiAdminFill />}
+            {users?.role === "User" && <FaUser />}
+            {users?.role === "Delivery Man" && <TbTruckDelivery />}
+            {users?.role}
+          </Typography>
+          </div>
         </div>
         {/* small device dashboard extra design end  */}
       </div>

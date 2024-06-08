@@ -79,9 +79,7 @@ const BookParcel = () => {
     if (receiversPhoneNumber.length < 11 || receiversPhoneNumber.length > 11) {
       return toast.warn("Please provide valid Phone Number");
     }
-    console.log(parcelInfo);
     axiosPublic.post("/parcels", parcelInfo).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         const userPhone = {
           phoneNumber: phoneNumber,
