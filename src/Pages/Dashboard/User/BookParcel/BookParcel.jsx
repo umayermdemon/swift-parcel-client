@@ -112,7 +112,7 @@ const BookParcel = () => {
       <SectionTitle heading={"Book Your Parcel Now"} />
       <form
         onSubmit={handleBookedForm}
-        className="lg:max-w-4xl mx-4 mb-8 md:mb-0 lg:mx-auto space-y-4 md:space-y-6 lg:space-y-8 bg-white p-4 md:p-6 lg:p-8 rounded-md"
+        className="lg:max-w-4xl mx-4 mb-8 md:mb-0  lg:mx-auto space-y-4 md:space-y-6 lg:space-y-8 bg-white p-4 md:p-6 lg:p-8 rounded-md"
       >
         <div className="flex flex-col md:flex-row gap-4 md:gap-16">
           <Input

@@ -37,7 +37,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
     });
   };
   return (
-    <tr key={name}>
+    <tr key={_id}>
       <td className={classes}>
         <Typography variant="small" color="blue-gray" className="font-normal">
           {name}

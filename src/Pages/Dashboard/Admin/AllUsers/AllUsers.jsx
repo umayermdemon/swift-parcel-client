@@ -2,7 +2,6 @@ import { Card, Typography } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useAllUsers from "../../../../hooks/useAllUsers";
 import AllUsersCard from "./AllUsersCard";
-// import Pagination from "../../../../Components/Pagination/Pagination";
 const TABLE_HEAD = [
   "Name",
   "Phone Number",
@@ -18,14 +17,14 @@ const AllUsers = () => {
   return (
     <div>
       <SectionTitle heading={"All Users"} />
-      <div className="max-w-6xl mx-2 lg:mx-auto">
+      <div className="max-w-6xl md:mx-2  md:h-[545px] lg:h-[550px] lg:mx-auto">
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
             Total Users: {users.length}
           </h2>
         </div>
         {users.length > 0 && (
-          <Card className="h-full w-full overflow-scroll lg:overflow-hidden">
+          <Card className="h-full w-full overflow-scroll ">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
