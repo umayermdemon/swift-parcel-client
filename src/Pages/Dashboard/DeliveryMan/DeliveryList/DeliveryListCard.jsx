@@ -3,6 +3,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { FaSearchLocation } from "react-icons/fa";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const DeliveryListCard = ({ item, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -31,9 +32,35 @@ const DeliveryListCard = ({ item, isLast, refetch }) => {
       }
     });
   };
-  const handleCancel=id=>{
-    console.log(id)
-  }
+  const handleCancel = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to cancel this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const cancelInfo = {
+          status: "Cancel",
+        };
+        axiosSecure
+          .patch(`/parcels/deliver/cancel/${id}`, cancelInfo)
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Canceled!",
+                text: "Your delivery has been canceled.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -98,8 +125,16 @@ const DeliveryListCard = ({ item, isLast, refetch }) => {
           color="blue-gray"
           className="font-normal flex flex-row items-center justify-center gap-1"
         >
-          <button className="cursor-pointer" onClick={()=>handleCancel(_id)}>
-            <MdOutlineCancel className="text-xl text-red-500 mx-auto" />
+          <button
+            disabled={status === "Delivered" || status === "Cancel"}
+            className="cursor-pointer"
+            onClick={() => handleCancel(_id)}
+          >
+            {status === "Cancel" ? (
+              <p className="text-red-300 font-bold text-base">Canceled</p>
+            ) : (
+              <MdOutlineCancel className="text-xl text-red-500 mx-auto" />
+            )}
           </button>
         </Typography>
       </td>
