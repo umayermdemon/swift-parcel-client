@@ -5,6 +5,8 @@ import useAllParcels from "../../../../hooks/useAllParcels";
 import ManageButtonModal from "../../../../Components/ManageButtonModal/ManageButtonModal";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const TABLE_HEAD = [
   "User’s Name",
@@ -20,14 +22,35 @@ const TABLE_HEAD = [
 const AllParcels = () => {
   const [parcels, refetch] = useAllParcels();
   const [bookingId, setBookingId] = useState(null);
+  const axiosSecure = useAxiosSecure();
   const handleManage = (id) => {
     setBookingId(id);
     console.log(id);
   };
-  const handleDelete=(id)=>{
-    console.log(id)
-
-  }
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/parcels/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch()
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <div>
       <SectionTitle heading="ALL Parcels" />
@@ -172,7 +195,11 @@ const AllParcels = () => {
                             color="blue-gray"
                             className="font-medium text-center"
                           >
-                            <button className="cursor-pointer" disabled={status != "Cancel"} onClick={()=>handleDelete(_id)}>
+                            <button
+                              className="cursor-pointer"
+                              disabled={status != "Cancel"}
+                              onClick={() => handleDelete(_id)}
+                            >
                               <MdDelete className="text-red-600 text-xl" />
                             </button>
                           </Typography>
