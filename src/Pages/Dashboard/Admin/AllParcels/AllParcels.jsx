@@ -4,6 +4,7 @@ import useAllParcels from "../../../../hooks/useAllParcels";
 // import { FaEdit } from "react-icons/fa";
 import ManageButtonModal from "../../../../Components/ManageButtonModal/ManageButtonModal";
 import { useState } from "react";
+import { MdDelete } from "react-icons/md";
 
 const TABLE_HEAD = [
   "User’s Name",
@@ -13,6 +14,7 @@ const TABLE_HEAD = [
   "Cost",
   "Status",
   "Manage",
+  "DELETE",
 ];
 
 const AllParcels = () => {
@@ -20,8 +22,12 @@ const AllParcels = () => {
   const [bookingId, setBookingId] = useState(null);
   const handleManage = (id) => {
     setBookingId(id);
+    console.log(id);
   };
+  const handleDelete=(id)=>{
+    console.log(id)
 
+  }
   return (
     <div>
       <SectionTitle heading="ALL Parcels" />
@@ -81,7 +87,7 @@ const AllParcels = () => {
                             {name}
                           </Typography>
                         </td>
-                        <td className={classes}>
+                        <td className={`${classes} bg-blue-gray-50/50`}>
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -99,7 +105,7 @@ const AllParcels = () => {
                             {bookingDate}
                           </Typography>
                         </td>
-                        <td className={classes}>
+                        <td className={`${classes} bg-blue-gray-50/50`}>
                           <Typography
                             as="a"
                             href="#"
@@ -121,7 +127,7 @@ const AllParcels = () => {
                             Tk.{price}
                           </Typography>
                         </td>
-                        <td className={classes}>
+                        <td className={`${classes} bg-blue-gray-50/50`}>
                           <Typography
                             as="a"
                             href="#"
@@ -130,7 +136,9 @@ const AllParcels = () => {
                             className={
                               status === "Pending"
                                 ? "bg-orange-300 p-1 rounded-md"
-                                : "bg-green-300 p-1 rounded-md text-white"
+                                : status === "On The Way"
+                                ? "bg-green-300 p-1 rounded-md text-white"
+                                : "bg-red-300 p-1 rounded-md text-white"
                             }
                           >
                             {status}
@@ -144,8 +152,28 @@ const AllParcels = () => {
                             color="blue-gray"
                             className="font-medium text-center"
                           >
-                            <button onClick={() => handleManage(_id)}>
-                              <ManageButtonModal bookingId={bookingId} refetch={refetch}/>
+                            <button
+                              disabled={status === "On The Way"}
+                              onClick={() => handleManage(_id)}
+                            >
+                              <ManageButtonModal
+                                bookingId={bookingId}
+                                refetch={refetch}
+                                requestedDeliveryDate={requestedDeliveryDate}
+                              />
+                            </button>
+                          </Typography>
+                        </td>
+                        <td className={`${classes} bg-blue-gray-50/50`}>
+                          <Typography
+                            as="a"
+                            href="#"
+                            variant="small"
+                            color="blue-gray"
+                            className="font-medium text-center"
+                          >
+                            <button className="cursor-pointer" disabled={status != "Cancel"} onClick={()=>handleDelete(_id)}>
+                              <MdDelete className="text-red-600 text-xl" />
                             </button>
                           </Typography>
                         </td>

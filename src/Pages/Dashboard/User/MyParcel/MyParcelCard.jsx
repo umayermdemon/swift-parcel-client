@@ -1,12 +1,12 @@
 import { Typography } from "@material-tailwind/react";
-// import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-// import { toast } from "react-toastify";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { MdOutlineCancel, MdReviews } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import MyParcelUpdateModal from "../../../../Components/MyParcelUpdateModal/MyParcelUpdateModal";
+import Swal from "sweetalert2";
 
-const MyParcelCard = ({ user, isLast,refetch }) => {
-  // const axiosSecure = useAxiosSecure();
+const MyParcelCard = ({ user, isLast, refetch }) => {
+  const axiosSecure = useAxiosSecure();
   const {
     parcelType,
     requestedDeliveryDate,
@@ -20,17 +20,34 @@ const MyParcelCard = ({ user, isLast,refetch }) => {
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
 
-  const handleUpdate = (id) => {
-    console.log(id)
+  const handleCancel = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const cancelInfo = {
+          status: "Cancel",
+        };
+        axiosSecure.patch(`/parcels/cancel/${id}`, cancelInfo).then((res) => {
+          refetch();
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Canceled!",
+              text: "Your booking has been canceled.",
+              icon: "success",
+            });
+          }
+        });
+       
+      }
+    });
   };
-  // const handleDeliveryMan = (id) => {
-  //   axiosSecure(`/users/deliveryMan/${id}`).then((res) => {
-  //     refetch();
-  //     if (res.data.modifiedCount > 0) {
-  //       toast.success(`set as a Delivery Man`);
-  //     }
-  //   });
-  // };
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -77,32 +94,40 @@ const MyParcelCard = ({ user, isLast,refetch }) => {
           className={
             status === "Pending"
               ? "bg-orange-300 p-1 rounded-md"
-              : "bg-green-300 p-1 rounded-md text-white"
+              : status === "On The Way"
+              ? "bg-green-300 p-1 rounded-md text-white"
+              : "bg-red-300 p-1 rounded-md text-white"
           }
         >
           {status}
         </Typography>
       </td>
       <td className={classes}>
-        <Typography color="blue-gray" >
-            <button onClick={()=>handleUpdate(_id)}>
-            <MyParcelUpdateModal status={status} _id={_id} user={user} refetch={refetch} />
-            </button>
+        <Typography color="blue-gray">
+          <button>
+            <MyParcelUpdateModal
+              status={status}
+              _id={_id}
+              user={user}
+              refetch={refetch}
+            />
+          </button>
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
-          {/* <button onClick={() => handleDeliveryMan(_id)}>
-            <MdOutlineCancel className="text-xl mx-auto" />
-          </button> */}
-          <button>
+          <button
+            disabled={status != "Pending"}
+            onClick={() => handleCancel(_id)}
+            className="cursor-pointer"
+          >
             <MdOutlineCancel className="text-xl text-red-500 mx-auto" />
           </button>
         </Typography>
       </td>
       <td className={classes}>
         <Typography color="blue-gray">
-          <button onClick={() => handleUpdate(_id)}>
+          <button>
             <MdReviews className="text-xl" />
           </button>
         </Typography>

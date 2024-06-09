@@ -1,6 +1,8 @@
 
 
+
 const Reviews = () => {
+ 
   return (
     <div>
       <h1>This is reviews page</h1>

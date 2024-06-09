@@ -12,7 +12,7 @@ import useAllDeliveryMan from "../../hooks/useAllDeliveryMan";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
-const ManageButtonModal = ({ bookingId,refetch }) => {
+const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate }) => {
   const [open, setOpen] = React.useState(false);
   const [deliveryMan] = useAllDeliveryMan();
   const axiosSecure = useAxiosSecure();
@@ -27,8 +27,6 @@ const ManageButtonModal = ({ bookingId,refetch }) => {
       deliveryManId: deliveryManId,
       approximateDeliveryDate: approximateDeliveryDate,
     };
-
-    console.log(deliveryManId, approximateDeliveryDate);
     axiosSecure.put(`/parcels/${bookingId}`, dataInfo).then((res) => {
       console.log(res.data)
       refetch()
@@ -63,7 +61,7 @@ const ManageButtonModal = ({ bookingId,refetch }) => {
                 className=" w-full mt-1 p-2 outline-none rounded-md bg-white border border-gray-400 "
               >
                 <option disabled selected>
-                  Select Your Role
+                  Select a delivery man
                 </option>
                 {deliveryMan.map(({ name, _id }) => (
                   <option key={_id} value={_id}>
@@ -75,6 +73,7 @@ const ManageButtonModal = ({ bookingId,refetch }) => {
                 type="date"
                 name="date"
                 label="Approximate delivery date"
+                defaultValue={requestedDeliveryDate}
                 required
               />
             </div>

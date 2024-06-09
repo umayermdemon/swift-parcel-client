@@ -15,7 +15,7 @@ import useDeliveryMan from "../../hooks/useDeliveryMan";
 
 const SidePanelLarge = () => {
   const [isAdmin] = useAdmin();
-  const [isDeliveryMan] = useDeliveryMan();
+  const {isDeliveryMan} = useDeliveryMan();
   return (
     <div className="pb-12">
       {isAdmin ? (

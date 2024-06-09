@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Button, Dialog, Input } from "@material-tailwind/react";
 import { FaEdit } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
-// import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure=useAxiosSecure()
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const { user: userForEmail } = useAuth();
@@ -78,7 +77,7 @@ const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
     if (receiversPhoneNumber.length < 11 || receiversPhoneNumber.length > 11) {
       return toast.warn("Please provide valid Phone Number");
     }
-    axiosPublic.patch(`/parcels/${_id}`, parcelInfo).then((res) => {
+    axiosSecure.patch(`/parcels/update/${_id}`, parcelInfo).then((res) => {
       if (res.data.modifiedCount > 0) {
         handleOpen();
         refetch();
@@ -103,7 +102,7 @@ const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
   return (
     <>
       <button disabled={status != "Pending"} onClick={handleOpen}>
-        <FaEdit className="text-xl" />
+        <FaEdit className="text-xl text-blue-500" />
       </button>
       <Dialog
         size="lg"

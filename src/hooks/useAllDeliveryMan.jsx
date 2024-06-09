@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
-
 const useAllDeliveryMan = () => {
   const axiosSecure = useAxiosSecure();
-
   const { data: deliveryMan = [], refetch } = useQuery({
     queryKey: ["deliveryMan"],
     queryFn: async () => {

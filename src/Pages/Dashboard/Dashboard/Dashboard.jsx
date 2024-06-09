@@ -12,24 +12,14 @@ import { FaHome, FaUser } from "react-icons/fa";
 import React from "react";
 import SidePanelLarge from "../../../Components/SidePanelLarge/SidePanelLarge";
 import SidePanelSmall from "../../../Components/SidePanelSmall/SidePanelSmall";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import { RiAdminFill } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
+import useSingleUser from "../../../hooks/useSingleUser";
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
-
-  const { data: users } = useQuery({
-    queryKey: [user?.email, "users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/users/user/${user?.email}`);
-      return res.data;
-    },
-  });
-  console.log(users);
+  const [users]=useSingleUser()
 
   return (
     <div className="bg-[#AFB9C5] w-full pt-4 md:pt-12 lg:pt-5 min-h-screen">
