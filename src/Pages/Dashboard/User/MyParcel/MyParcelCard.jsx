@@ -44,7 +44,6 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
             });
           }
         });
-       
       }
     });
   };
@@ -95,8 +94,10 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
             status === "Pending"
               ? "bg-orange-300 p-1 rounded-md"
               : status === "On The Way"
-              ? "bg-green-300 p-1 rounded-md text-white"
-              : "bg-red-300 p-1 rounded-md text-white"
+              ? "bg-blue-300 p-1 rounded-md text-white"
+              : status === "Cancel"
+              ? "bg-red-300 p-1 rounded-md text-white"
+              : "bg-green-300 p-1 rounded-md text-white"
           }
         >
           {status}

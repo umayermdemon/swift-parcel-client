@@ -40,7 +40,7 @@ const AllParcels = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcels/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -160,8 +160,10 @@ const AllParcels = () => {
                               status === "Pending"
                                 ? "bg-orange-300 p-1 rounded-md"
                                 : status === "On The Way"
-                                ? "bg-green-300 p-1 rounded-md text-white"
-                                : "bg-red-300 p-1 rounded-md text-white"
+                                ? "bg-blue-300 p-1 rounded-md text-white"
+                                : status === "Cancel"
+                                ? "bg-red-300 p-1 rounded-md text-white"
+                                : "bg-green-300 p-1 rounded-md text-white"
                             }
                           >
                             {status}

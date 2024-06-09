@@ -2,7 +2,6 @@ import { Card, Typography } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useDeliveryList from "../../../../hooks/useDeliveryList";
 import DeliveryListCard from "./DeliveryListCard";
-// import useDuplicateParcels from "../../../../hooks/useDuplicateParcels";
 const TABLE_HEAD = [
   "Booked User’s Name",
   "Receivers Name",
@@ -17,8 +16,7 @@ const TABLE_HEAD = [
 ];
 
 const DeliveryList = () => {
-  const [deliveryList] = useDeliveryList();
-  console.log(deliveryList);
+  const [deliveryList,refetch] = useDeliveryList();
   return (
     <div>
       <SectionTitle heading={" My Delivery List"} />
@@ -49,13 +47,12 @@ const DeliveryList = () => {
             <tbody>
               {deliveryList.map((item, idx) => {
                 const isLast = idx === deliveryList.length - 1;
-                return <DeliveryListCard key={idx} isLast={isLast} item={item}/>;
+                return <DeliveryListCard key={idx} isLast={isLast} item={item} refetch={refetch}/>;
               })}
             </tbody>
           </table>
         </Card>
       </div>
-      {/* <Pagination/> */}
     </div>
   );
 };

@@ -6,7 +6,6 @@ import useAxiosSecure from "./useAxiosSecure";
 const useSingleUser = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
   const { data: users } = useQuery({
     queryKey: [user?.email, "users"],
     queryFn: async () => {

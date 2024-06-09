@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
   const axiosPublic = useAxiosPublic();
-  console.log(user)
 
   const createUser = (email, password) => {
     setLoader(true);
@@ -62,8 +61,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         const userInfo = { email: currentUser.email };
-        axiosPublic.post("/jwt", userInfo)
-        .then((res) => {
+        axiosPublic.post("/jwt", userInfo).then((res) => {
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
             // setLoader(false);
@@ -74,7 +72,6 @@ const AuthProvider = ({ children }) => {
         // setLoader(false);
       }
       setLoader(false);
-      
     });
     return () => {
       unSubscribe();

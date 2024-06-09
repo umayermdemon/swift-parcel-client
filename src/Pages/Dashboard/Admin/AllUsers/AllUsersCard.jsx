@@ -5,7 +5,6 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import useBookedParcel from "../../../../hooks/useBookedParcel";
-// import useAllPArcels from "../../../../hooks/useAllPArcels";
 
 const AllUsersCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -16,9 +15,6 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
 
-  //  const [parcels]=useAllPArcels()
-  //  const filtered= parcels.find((parcel)=>(parcel.email===email))
-  //  console.log(filtered)
 
   const handleAdmin = (id) => {
     axiosSecure.patch(`/users/admin/${id}`).then((res) => {
@@ -50,7 +46,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={classes}>
         <Typography variant="small" color="blue-gray" className="font-normal">
-          {bookedParcel.length}
+          
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
