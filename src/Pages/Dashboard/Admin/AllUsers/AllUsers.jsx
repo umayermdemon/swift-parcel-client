@@ -9,15 +9,21 @@ const TABLE_HEAD = [
   "Total Spent",
   "User Role",
   "Admin",
-  "Delivery Men"
+  "Delivery Men",
 ];
 
 const AllUsers = () => {
- const [users,refetch]=useAllUsers()
+  const [users, refetch] = useAllUsers();
   return (
     <div>
       <SectionTitle heading={"All Users"} />
-      <div className="max-w-6xl md:mx-2  lg:mx-auto">
+      <div
+        className={
+          users.length > 6
+            ? "max-w-6xl md:mx-2 md:h-[500px] lg:h-[550px] lg:mx-auto"
+            : "max-w-6xl md:mx-2  lg:mx-auto"
+        }
+      >
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
             Total Users: {users.length}
@@ -45,11 +51,17 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user,idx)=>{
+                {users.map((user, idx) => {
                   const isLast = idx === users.length - 1;
-                  return <AllUsersCard key={idx} user={user} isLast={isLast} refetch={refetch}/>
-                })
-                }
+                  return (
+                    <AllUsersCard
+                      key={idx}
+                      user={user}
+                      isLast={isLast}
+                      refetch={refetch}
+                    />
+                  );
+                })}
               </tbody>
             </table>
           </Card>

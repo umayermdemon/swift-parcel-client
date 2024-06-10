@@ -16,7 +16,11 @@ const AllDeliveryMan = () => {
   return (
     <div>
       <SectionTitle heading={"All Delivery Man"} />
-      <div className="max-w-6xl md:mx-2   lg:mx-auto">
+      <div className={
+          deliveryMan.length > 6
+            ? "max-w-6xl md:mx-2 md:h-[500px] lg:h-[550px] lg:mx-auto"
+            : "max-w-6xl md:mx-2  lg:mx-auto"
+        }>
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
             Total Users: {deliveryMan.length}

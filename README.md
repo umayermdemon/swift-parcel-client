@@ -26,7 +26,7 @@ At **Swift Parcel**, our mission is to provide the most efficient and reliable p
 
 ## Overview
 
-***Swift Parcel** provides a comprehensive suite of features to manage your parcel deliveries with ease:
+**Swift Parcel** provides a comprehensive suite of features to manage your parcel deliveries with ease:
 
 - **User-Friendly Booking:** Easily book parcels with a simple and intuitive interface.
 - **Real-Time Tracking:** Keep track of your parcels with real-time updates and notifications.
