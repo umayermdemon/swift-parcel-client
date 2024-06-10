@@ -46,8 +46,7 @@ const DeliveryListCard = ({ item, isLast, refetch }) => {
         const cancelInfo = {
           status: "Cancel",
         };
-        axiosSecure
-          .patch(`/parcels/deliver/cancel/${id}`, cancelInfo)
+        axiosSecure.patch(`/parcels/deliver/cancel/${id}`, cancelInfo)
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               refetch();

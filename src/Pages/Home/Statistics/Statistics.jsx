@@ -1,13 +1,33 @@
 import { Card, CardHeader, Typography } from "@material-tailwind/react";
 import CountUp from "react-countup";
-import useAllParcels from "../../../hooks/useAllParcels";
-import useAllDelivered from "../../../hooks/useAllDelivered";
-import useAllUsers from "../../../hooks/useAllUsers";
+import useRegisteredUser from "../../../hooks/useRegisteredUser";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Statistics = () => {
-  const [parcels] = useAllParcels();
-  const [deliveredParcels] = useAllDelivered();
-  const [users] = useAllUsers();
+  const axiosPublic = useAxiosPublic();
+  const { data: parcels = [] } = useQuery({
+    queryKey: ["parcels"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/parcels/bookedParcel");
+      return res.data;
+    },
+  });
+
+  const deliveredInfo = {
+    status: "Delivered",
+  };
+  const { data: deliveredParcels = [] } = useQuery({
+    queryKey: ["deliveredParcels"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/parcels/totalDelivered/${deliveredInfo.status}`
+      );
+      return res.data;
+    },
+  });
+  const [users] = useRegisteredUser();
+  console.log(users, deliveredParcels, parcels);
   return (
     <div className="bg-orange-50 py-2 md:py-4 max-w-screen-2xl rounded-md mx-auto my-4 md:my-8 lg:my-12">
       <div className="flex flex-row gap-2 max-w-7xl md:mx-auto  mx-1">
@@ -29,6 +49,7 @@ const Statistics = () => {
                 Parcel Booked
               </Typography>
               <CountUp
+                duration={4}
                 end={parcels.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />
@@ -53,6 +74,7 @@ const Statistics = () => {
                 Parcel Delivered
               </Typography>
               <CountUp
+                duration={4}
                 end={deliveredParcels.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />
@@ -77,6 +99,7 @@ const Statistics = () => {
                 Happy Users
               </Typography>
               <CountUp
+                duration={4}
                 end={users.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />

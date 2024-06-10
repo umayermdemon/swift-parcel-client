@@ -69,7 +69,6 @@ const MyParcel = () => {
           </Card>
         )}
       </div>
-      {/* <Pagination/> */}
     </div>
   );
 };

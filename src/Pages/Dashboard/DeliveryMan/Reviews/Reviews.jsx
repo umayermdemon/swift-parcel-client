@@ -1,3 +1,5 @@
+import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
+import ReviewsCard from "./ReviewsCard";
 
 
 
@@ -5,7 +7,10 @@ const Reviews = () => {
  
   return (
     <div>
-      <h1>This is reviews page</h1>
+      <SectionTitle heading={"My Reviews"}/>
+      <div>
+        <ReviewsCard/>
+      </div>
     </div>
   );
 };

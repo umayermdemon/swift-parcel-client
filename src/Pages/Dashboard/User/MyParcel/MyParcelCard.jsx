@@ -1,9 +1,10 @@
 import { Typography } from "@material-tailwind/react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { MdOutlineCancel, MdReviews } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import MyParcelUpdateModal from "../../../../Components/MyParcelUpdateModal/MyParcelUpdateModal";
 import Swal from "sweetalert2";
+import ReviewsModal from "./ReviewsModal";
 
 const MyParcelCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -47,10 +48,6 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
       }
     });
   };
-
-  const handleReview=id=>{
-    console.log(id)
-  }
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -126,22 +123,20 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
             onClick={() => handleCancel(_id)}
             className="cursor-pointer"
           >
-            <MdOutlineCancel className={
-            status != "Pending"
-              ? "text-xl text-red-200 mx-auto"
-              : "text-xl text-red-700 mx-auto"
-          } />
+            <MdOutlineCancel
+              className={
+                status != "Pending"
+                  ? "text-xl text-red-200 mx-auto"
+                  : "text-xl text-red-700 mx-auto"
+              }
+            />
           </button>
         </Typography>
       </td>
       <td className={classes}>
         <Typography color="blue-gray">
-          <button disabled={status != "Delivered"} onClick={()=>handleReview(_id)}>
-            <MdReviews className={
-            status != "Delivered"
-              ? "text-xl text-green-200 mx-auto"
-              : "text-xl text-green-700 mx-auto"
-          } />
+          <button>
+            <ReviewsModal status={status} deliveryManId={deliveryManId} />
           </button>
         </Typography>
       </td>

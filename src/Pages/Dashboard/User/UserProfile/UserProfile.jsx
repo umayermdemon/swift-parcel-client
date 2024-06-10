@@ -3,7 +3,7 @@
 const UserProfile = () => {
   return (
     <div>
-      <h1>This is user profile</h1>
+      <h1>This is my profile</h1>
     </div>
   );
 };
