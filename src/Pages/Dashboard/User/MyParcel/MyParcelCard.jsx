@@ -47,6 +47,10 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
       }
     });
   };
+
+  const handleReview=id=>{
+    console.log(id)
+  }
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -122,14 +126,22 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
             onClick={() => handleCancel(_id)}
             className="cursor-pointer"
           >
-            <MdOutlineCancel className="text-xl text-red-500 mx-auto" />
+            <MdOutlineCancel className={
+            status != "Pending"
+              ? "text-xl text-red-200 mx-auto"
+              : "text-xl text-red-700 mx-auto"
+          } />
           </button>
         </Typography>
       </td>
       <td className={classes}>
         <Typography color="blue-gray">
-          <button>
-            <MdReviews className="text-xl" />
+          <button disabled={status != "Delivered"} onClick={()=>handleReview(_id)}>
+            <MdReviews className={
+            status != "Delivered"
+              ? "text-xl text-green-200 mx-auto"
+              : "text-xl text-green-700 mx-auto"
+          } />
           </button>
         </Typography>
       </td>

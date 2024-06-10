@@ -178,13 +178,14 @@ const AllParcels = () => {
                             className="font-medium text-center"
                           >
                             <button
-                              disabled={status === "On The Way"}
+                              disabled={status != "Pending"}
                               onClick={() => handleManage(_id)}
                             >
                               <ManageButtonModal
                                 bookingId={bookingId}
                                 refetch={refetch}
                                 requestedDeliveryDate={requestedDeliveryDate}
+                                status={status}
                               />
                             </button>
                           </Typography>

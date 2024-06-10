@@ -16,7 +16,7 @@ import useAuth from "../../hooks/useAuth";
 import { FaPowerOff, FaUser } from "react-icons/fa";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
-import { IoIosNotifications} from "react-icons/io";
+import { IoIosNotifications } from "react-icons/io";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
@@ -42,11 +42,10 @@ const NavBar = () => {
         </a>
       </Typography>
       <Typography className="p-1 font-semibold">
-        <a  className="flex items-center">
-        <IoIosNotifications className="text-2xl"/>
+        <a className="flex items-center">
+          <IoIosNotifications className="text-2xl" />
         </a>
       </Typography>
-      
     </ul>
   );
   return (
@@ -55,9 +54,9 @@ const NavBar = () => {
         <div className="flex items-center  justify-between text-blue-gray-900">
           <Typography className="mr-4  flex items-center gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
             <img src={logo} alt="" className="w-16" />
-            <div className="flex items-center md:text-4xl">
-              <p className="text-5xl md:text-7xl">S</p>
-              <sub>wift</sub>
+            <div className="flex flex-col ">
+              <p className="text-2xl md:text-4xl">Swift</p>
+              <p className="text-xl md:text-2xl">Parcel</p>
             </div>
           </Typography>
           <div className="mr-4 hidden lg:block">{navList}</div>

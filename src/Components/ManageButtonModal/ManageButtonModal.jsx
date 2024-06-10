@@ -12,7 +12,7 @@ import useAllDeliveryMan from "../../hooks/useAllDeliveryMan";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
-const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate }) => {
+const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) => {
   const [open, setOpen] = React.useState(false);
   const [deliveryMan] = useAllDeliveryMan();
   const axiosSecure = useAxiosSecure();
@@ -40,9 +40,9 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate }) => {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>
-        <FaEdit className="text-xl" />
-      </Button>
+      <button onClick={handleOpen} >
+        <FaEdit className={status=== "Pending"? "text-xl text-blue-400": "text-xl text-blue-100"} />
+      </button>
       <Dialog open={open} size="xs" handler={handleOpen}>
         ,
         <form onSubmit={handleForm}>
@@ -79,13 +79,12 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate }) => {
             </div>
           </DialogBody>
           <DialogFooter className="space-x-2">
-            <Button variant="text" color="gray" onClick={handleOpen}>
+            <Button variant="text" color="red" onClick={handleOpen}>
               cancel
             </Button>
             <Button
-              variant="gradient"
               type="submit"
-              color="gray"
+              className="bg-[#0E3557]"
               onClick={handleOpen}
             >
               Assign

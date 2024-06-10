@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Button, Dialog, Input } from "@material-tailwind/react";
 import { FaEdit } from "react-icons/fa";
-import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
-  const axiosSecure=useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
-  const { user: userForEmail } = useAuth();
   const today = new Date();
   const month = (today.getMonth() + 1).toString().padStart(2, "0");
   const date = today.getDate().toString().padStart(2, "0");
@@ -102,7 +100,13 @@ const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
   return (
     <>
       <button disabled={status != "Pending"} onClick={handleOpen}>
-        <FaEdit className="text-xl text-blue-500" />
+        <FaEdit
+          className={
+            status != "Pending"
+              ? "text-xl text-blue-100"
+              : "text-xl text-blue-500"
+          }
+        />
       </button>
       <Dialog
         size="lg"
@@ -125,7 +129,7 @@ const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
               size="lg"
               label="Name"
               placeholder="Type Here"
-              defaultValue={userForEmail.displayName}
+              defaultValue={user?.name}
               readOnly
               name="name"
             />
@@ -135,7 +139,7 @@ const MyParcelUpdateModal = ({ status, _id, user, refetch }) => {
               size="lg"
               label="Email"
               placeholder="Type Here"
-              defaultValue={userForEmail.email}
+              defaultValue={user?.email}
               readOnly
               name="email"
             />
