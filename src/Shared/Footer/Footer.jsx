@@ -32,7 +32,7 @@ const Footer = () => {
               {LINKS.map(({ title, items }) => (
                 <ul key={title}>
                   <Typography
-                    variant="md"
+                    
                     className="mb-3 font-bold text-[#F5AB35]"
                   >
                     {title}

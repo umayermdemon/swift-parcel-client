@@ -23,7 +23,7 @@ const DeliveryList = () => {
       <div
         className={
           deliveryList.length > 6
-            ? "max-w-6xl md:mx-2 md:h-[500px] lg:h-[550px] lg:mx-auto"
+            ? "max-w-6xl md:mx-2 md:h-full lg:h-[550px] lg:mx-auto"
             : "max-w-6xl md:mx-2  lg:mx-auto"
         }
       >
@@ -42,7 +42,7 @@ const DeliveryList = () => {
                     className="border-b text-center border-blue-gray-100 bg-blue-gray-50 p-4"
                   >
                     <Typography
-                      variant="md"
+                      
                       color="gray"
                       className="font-semibold leading-none opacity-70"
                     >

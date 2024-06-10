@@ -1,11 +1,11 @@
 import {
   Avatar,
   Button,
+  Collapse,
   IconButton,
   Menu,
   MenuHandler,
   MenuList,
-  MobileNav,
   Navbar,
   Typography,
 } from "@material-tailwind/react";
@@ -170,25 +170,26 @@ const NavBar = () => {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        
+        <Collapse open={openNav}>
           {navList}
           {user ? (
             <span></span>
           ) : (
             <div className="flex items-end gap-x-1">
               <Link to="/login">
-                <Button fullWidth variant="gradient" size="sm" className="">
+                <Button fullWidth  size="sm" className="bg-[#0B2D42]">
                   Log In
                 </Button>
               </Link>
               <Link to="/register">
-                <Button fullWidth variant="gradient" size="sm" className="">
+                <Button fullWidth  size="sm" className="bg-[#0B2D42]">
                   Register
                 </Button>
               </Link>
             </div>
           )}
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );

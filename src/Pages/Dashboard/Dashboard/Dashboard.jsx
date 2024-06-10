@@ -119,7 +119,7 @@ const Dashboard = () => {
 
           <SidePanelLarge />
         </div>
-        <div className="bg-[#D7DBE4] h-full md:h-[665px] lg:h-[750px] p-2 lg:p-8  w-full  rounded-b-2xl">
+        <div className="bg-[#D7DBE4] h-full md:h-full lg:h-[750px] p-2 lg:p-8  w-full  rounded-b-2xl">
           <Outlet />
         </div>
       </div>

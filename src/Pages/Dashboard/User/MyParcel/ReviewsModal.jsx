@@ -12,12 +12,12 @@ import { MdReviews } from "react-icons/md";
 import useAuth from "../../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const ReviewsModal = ({ status, deliveryManId }) => {
   const [open, setOpen] = React.useState(false);
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const today = new Date();
   const month = (today.getMonth() + 1).toString().padStart(2, "0");
   const date = today.getDate().toString().padStart(2, "0");
@@ -38,12 +38,15 @@ const ReviewsModal = ({ status, deliveryManId }) => {
       rating,
       feedback,
       deliveryManId,
-      reviewedDate
+      reviewedDate,
     };
     if (rating > 5) {
       return toast.error("Please Rating out of 5");
     }
-    axiosPublic.post("/reviews", reviewInfo).then((res) => {
+    if (feedback.length > 120) {
+      return toast.error("Feedback should be given in 120 words");
+    }
+    axiosSecure.post("/reviews", reviewInfo).then((res) => {
       if (res.data.insertedId) {
         handleOpen();
         toast.success("Reviewed successfully");
@@ -105,7 +108,11 @@ const ReviewsModal = ({ status, deliveryManId }) => {
                 {...register("rating")}
                 required
               />
-              <Textarea label="Feedback" {...register("feedback")} required />
+              <Textarea
+                label="Feedback (within 120 word)"
+                {...register("feedback")}
+                required
+              />
               <Input
                 label="Delivery Men’s Id"
                 defaultValue={deliveryManId}
@@ -118,7 +125,7 @@ const ReviewsModal = ({ status, deliveryManId }) => {
             <Button variant="text" color="gray" onClick={handleOpen}>
               cancel
             </Button>
-            <Button type="submit" variant="gradient" color="gray">
+            <Button type="submit" className="bg-[#0B2D42]" color="gray">
               Send Feedback
             </Button>
           </DialogFooter>
