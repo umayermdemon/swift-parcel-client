@@ -15,6 +15,7 @@ const SocialLogin = () => {
       .then((result) => {
         if (result.user) {
           const userInfo = {
+            image: result.user?.photoURL,
             name: result.user?.displayName,
             email: result.user?.email,
             role: "User",
@@ -70,6 +71,7 @@ const SocialLogin = () => {
       .then((result) => {
         if (result.user) {
           const userInfo = {
+            image: result.user?.photoURL,
             name: result.user?.displayName,
             email: result.user?.email,
             role: "User",
@@ -125,6 +127,7 @@ const SocialLogin = () => {
       .then((result) => {
         if (result.user) {
           const userInfo = {
+            image: result.user?.photoURL,
             name: result.user?.displayName,
             email: result.user?.email,
             role: "User",
