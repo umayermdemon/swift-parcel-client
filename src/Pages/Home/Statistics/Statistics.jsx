@@ -27,7 +27,6 @@ const Statistics = () => {
     },
   });
   const [users] = useRegisteredUser();
-  console.log(users, deliveredParcels, parcels);
   return (
     <div className="bg-orange-50 py-2 md:py-4 max-w-screen-2xl rounded-md mx-auto my-4 md:my-8 lg:my-12">
       <div className="flex flex-row gap-2 max-w-7xl md:mx-auto  mx-1">

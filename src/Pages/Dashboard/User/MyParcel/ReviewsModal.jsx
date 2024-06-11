@@ -28,7 +28,7 @@ const ReviewsModal = ({ status, deliveryManId }) => {
   const onSubmit = (data) => {
     const userName = data?.userName;
     const userImage = data?.userImage;
-    const rating = data?.rating;
+    const rating = parseFloat(data?.rating);
     const feedback = data?.feedback;
     const deliveryManId = data?.deliveryManId;
 

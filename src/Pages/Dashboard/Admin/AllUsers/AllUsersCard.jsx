@@ -20,7 +20,7 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
       return res.data;
     },
   });
-  console.log(parcelBooked);
+
 
   const totalSpent = parcelBooked.reduce(
     (total, parcel) => total + parcel.price,

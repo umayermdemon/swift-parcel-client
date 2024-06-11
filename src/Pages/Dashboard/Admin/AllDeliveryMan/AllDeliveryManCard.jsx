@@ -1,23 +1,13 @@
 import { Typography } from "@material-tailwind/react";
-import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-const AllDeliveryManCard = ({ user, isLast, refetch }) => {
+const AllDeliveryManCard = ({ user, isLast }) => {
   const axiosSecure = useAxiosSecure();
   const { name, _id, phoneNumber } = user || {};
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
-  const handleDelete = (id) => {
-    axiosSecure(`/users/deliveryMan/${id}`).then((res) => {
-      refetch();
-      if (res.data.deletedCount) {
-        toast.success(`${name} deleted from Delivery Man`);
-      }
-    });
-  };
 
   const { data: deliveredParcels = [] } = useQuery({
     queryKey: [_id, "deliveredParcels"],
@@ -27,6 +17,19 @@ const AllDeliveryManCard = ({ user, isLast, refetch }) => {
       return res.data;
     },
   });
+  const { data: reviews = [] } = useQuery({
+    queryKey: [_id, "reviews"],
+    enabled: !!_id,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/reviews/totalReviews/${_id}`);
+      return res.data;
+    },
+  });
+  const totalRating = reviews.reduce(
+    (total, review) => total + review.rating,
+    0
+  );
+  const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
 
   return (
     <tr key={_id}>
@@ -47,20 +50,10 @@ const AllDeliveryManCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography
-          as="a"
-          href="#"
           variant="h6"
-          color="blue-gray"
-          className="font-medium"
+          className="font-medium text-[#28a745]"
         >
-          Average Review
-        </Typography>
-      </td>
-      <td className={classes}>
-        <Typography color="blue-gray">
-          <button onClick={() => handleDelete(_id)}>
-            <MdDelete className="text-xl mx-auto text-red-300" />
-          </button>
+          {averageRating.toFixed(2)}
         </Typography>
       </td>
     </tr>

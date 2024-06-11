@@ -7,8 +7,7 @@ const TABLE_HEAD = [
   "Name",
   "Phone Number",
   "Number of parcel delivered",
-  "Average review",
-  "Delete",
+  "Average review"
 ];
 
 const AllDeliveryMan = () => {

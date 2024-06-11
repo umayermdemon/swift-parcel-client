@@ -55,8 +55,8 @@ const NavBar = () => {
           <Typography className="mr-4  flex items-center gap-2 font-cinzel  text-[#0B2D42] cursor-pointer py-1.5 font-bold">
             <img src={logo} alt="" className="w-16" />
             <div className="flex flex-col ">
-              <p className="text-2xl md:text-4xl">Swift</p>
-              <p className="text-xl md:text-2xl">Parcel</p>
+              <h2 className="text-2xl md:text-4xl"> Swift</h2>
+              <h3 className="text-xl md:text-2xl"> Parcel</h3>
             </div>
           </Typography>
           <div className="mr-4 hidden lg:block">{navList}</div>
@@ -170,7 +170,7 @@ const NavBar = () => {
             </IconButton>
           </div>
         </div>
-        
+
         <Collapse open={openNav}>
           {navList}
           {user ? (
@@ -178,12 +178,12 @@ const NavBar = () => {
           ) : (
             <div className="flex items-end gap-x-1">
               <Link to="/login">
-                <Button fullWidth  size="sm" className="bg-[#0B2D42]">
+                <Button fullWidth size="sm" className="bg-[#0B2D42]">
                   Log In
                 </Button>
               </Link>
               <Link to="/register">
-                <Button fullWidth  size="sm" className="bg-[#0B2D42]">
+                <Button fullWidth size="sm" className="bg-[#0B2D42]">
                   Register
                 </Button>
               </Link>
