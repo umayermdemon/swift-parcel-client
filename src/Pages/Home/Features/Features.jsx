@@ -8,11 +8,8 @@ import "swiper/css/pagination";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
-import {
-  Card,
-  CardBody,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography } from "@material-tailwind/react";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 
 const Features = () => {
   const [feature, setFeature] = useState([]);
@@ -27,11 +24,11 @@ const Features = () => {
     <div className="max-w-7xl my-12 mx-auto">
       <div className="space-y-4">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold uppercase text-[#0B2D42]">Our Features</h1>
-          <p className="w-[400px] md:w-[600px] lg:w-[800px] mx-auto text-xs md:text-base text-gray-500">
+          <SectionTitle heading={"Our Features"} />
+          <p className="w-[400px] md:w-[600px] lg:w-[800px] mx-auto text-xs md:text-sm text-gray-500">
             Welcome to Swift, your trusted partner in parcel management
             solutions. At Swift, we understand the importance of efficient,
-            reliable, and secure parcel delivery. 
+            reliable, and secure parcel delivery.
           </p>
         </div>
 
@@ -47,20 +44,25 @@ const Features = () => {
             modules={[FreeMode, Pagination]}
             className="mySwiper"
           >
-            {feature.map(({title,description,icon,bgColor}, idx) => (
+            {feature.map(({ title, description, icon, bgColor }, idx) => (
               <SwiperSlide key={idx}>
-                  <Card style={{backgroundColor: bgColor}} className=" w-36 md:w-full h-64 lg:h-52  text-center mx-2">
-                    <CardBody>
-                      <h3 className="mb-3 text-5xl">{icon}</h3>
-                      <Typography
-                        color="blue-gray"
-                        className="mb-1 text-sm md:text-xl font-bold"
-                      >
-                        {title}
-                      </Typography>
-                      <Typography className="text-xs md:text-base">{description}</Typography>
-                    </CardBody>
-                  </Card>
+                <Card
+                  style={{ backgroundColor: bgColor }}
+                  className=" w-36 md:w-full h-64 lg:h-52  text-center mx-2"
+                >
+                  <CardBody>
+                    <h3 className="mb-3 text-5xl">{icon}</h3>
+                    <Typography
+                      color="blue-gray"
+                      className="mb-1 text-sm md:text-xl font-bold"
+                    >
+                      {title}
+                    </Typography>
+                    <Typography className="text-xs md:text-base">
+                      {description}
+                    </Typography>
+                  </CardBody>
+                </Card>
               </SwiperSlide>
             ))}
           </Swiper>

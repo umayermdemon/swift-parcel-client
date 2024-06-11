@@ -57,7 +57,7 @@ const AllParcels = () => {
       <div
         className={
           parcels.length > 6
-            ? "max-w-6xl md:mx-2 md:h-full lg:h-[550px] lg:mx-auto"
+            ? "max-w-6xl md:mx-2 md:h-full lg:h-full lg:mx-auto"
             : "max-w-6xl md:mx-2  lg:mx-auto"
         }
       >
@@ -183,7 +183,7 @@ const AllParcels = () => {
                             color="blue-gray"
                             className="font-medium text-center"
                           >
-                            <button
+                            <div
                               disabled={status != "Pending"}
                               onClick={() => handleManage(_id)}
                             >
@@ -193,7 +193,7 @@ const AllParcels = () => {
                                 requestedDeliveryDate={requestedDeliveryDate}
                                 status={status}
                               />
-                            </button>
+                            </div>
                           </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>

@@ -17,7 +17,6 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     const email = data.email;
     const password = data.password;
     signInUser(email, password)
@@ -71,13 +70,13 @@ const Login = () => {
       <div className="absolute top-20 md:top-16 bg-white p-4  md:p-8 rounded-md lg:top-44 right-8 lg:right-72">
         <Card color="transparent" shadow={false}>
           <Link to="/">
-            <Typography className=" flex items-center justify-center mb-4 gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
+            <div className=" flex items-center justify-center mb-4 gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
               <img src={logo} alt="" className="w-16" />
               <div className="flex items-center md:text-4xl">
-                <p className="text-5xl md:text-7xl">S</p>
+                <h2 className="text-5xl md:text-7xl">S</h2>
                 <sub>wift</sub>
               </div>
-            </Typography>
+            </div>
           </Link>
           <Typography
             color="blue-gray"

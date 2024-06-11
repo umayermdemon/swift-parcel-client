@@ -101,13 +101,13 @@ const Register = () => {
           className="ml-16 md:ml-48 lg:ml-0"
         >
           <Link to="/">
-            <Typography className=" flex items-center justify-center mb-4 gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
+            <div className=" flex items-center justify-center mb-4 gap-2 font-cinzel text-3xl text-[#0B2D42] cursor-pointer py-1.5 font-bold">
               <img src={logo} alt="" className="w-16" />
               <div className="flex items-center lg:text-4xl">
-                <p className="text-5xl lg:text-7xl">S</p>
+                <h2 className="text-5xl lg:text-7xl">S</h2>
                 <sub>wift</sub>
               </div>
-            </Typography>
+            </div>
           </Link>
           <Typography
             color="blue-gray"

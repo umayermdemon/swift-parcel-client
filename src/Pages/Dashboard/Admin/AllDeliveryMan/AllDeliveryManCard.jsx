@@ -1,9 +1,9 @@
 import { Typography } from "@material-tailwind/react";
-import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 
 const AllDeliveryManCard = ({ user, isLast }) => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic=useAxiosPublic()
   const { name, _id, phoneNumber } = user || {};
   const classes = isLast
     ? "p-4 text-center"
@@ -13,7 +13,7 @@ const AllDeliveryManCard = ({ user, isLast }) => {
     queryKey: [_id, "deliveredParcels"],
     enabled: !!_id,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels/parcelDelivered/${_id}`);
+      const res = await axiosPublic.get(`/parcels/parcelDelivered/${_id}`);
       return res.data;
     },
   });
@@ -21,7 +21,7 @@ const AllDeliveryManCard = ({ user, isLast }) => {
     queryKey: [_id, "reviews"],
     enabled: !!_id,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/reviews/totalReviews/${_id}`);
+      const res = await axiosPublic.get(`/reviews/${_id}`);
       return res.data;
     },
   });

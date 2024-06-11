@@ -52,13 +52,13 @@ const NavBar = () => {
     <div className="sticky top-0 z-10 h-max ">
       <Navbar className=" lg:max-h-[768px]  max-w-full rounded-none border-none shadow-none px-4 py-2 lg:px-16">
         <div className="flex items-center  justify-between text-blue-gray-900">
-          <Typography className="mr-4  flex items-center gap-2 font-cinzel  text-[#0B2D42] cursor-pointer py-1.5 font-bold">
+          <div className="mr-4  flex items-center gap-2 font-cinzel  text-[#0B2D42] cursor-pointer py-1.5 font-bold">
             <img src={logo} alt="" className="w-16" />
             <div className="flex flex-col ">
               <h2 className="text-2xl md:text-4xl"> Swift</h2>
               <h3 className="text-xl md:text-2xl"> Parcel</h3>
             </div>
-          </Typography>
+          </div>
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-4">
             {user ? (
