@@ -10,7 +10,7 @@ const TopDeliveryMan = () => {
     status: "Delivery Man",
   };
 
-  const { data: deliveryMen = [], isLoading: deliveryMenLoading } = useQuery({
+  const { data: deliveryMans = [], isLoading } = useQuery({
     queryKey: [roleInfo.status, "deliveryMan"],
     enabled: !!roleInfo.status,
     queryFn: async () => {
@@ -20,21 +20,20 @@ const TopDeliveryMan = () => {
       return res.data;
     },
   });
-console.log(deliveryMen)
-  const [sortedDeliveryMen, setSortedDeliveryMen] = useState([]);
+  const [sortedDeliveryMan, setSortedDeliveryMan] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const deliveryMenData = await Promise.all(
-        deliveryMen.map(async (deliveryMan) => {
-          const parcelsRes = await axiosPublic.get(
+      const deliveryManData = await Promise.all(
+        deliveryMans.map(async (deliveryMan) => {
+          const getParcels = await axiosPublic.get(
             `/parcels/parcelDelivered/${deliveryMan._id}`
           );
-          const reviewsRes = await axiosPublic.get(
+          const getReviews = await axiosPublic.get(
             `/reviews/${deliveryMan._id}`
           );
-          const parcels = parcelsRes.data;
-          const reviews = reviewsRes.data;
+          const parcels = getParcels.data;
+          const reviews = getReviews.data;
           const image=deliveryMan.image;
           const totalRating = reviews.reduce(
             (total, review) => total + review.rating,
@@ -51,32 +50,31 @@ console.log(deliveryMen)
         })
       );
 
-      const sortedData = deliveryMenData.sort((a, b) => {
+      const sortedData = deliveryManData.sort((a, b) => {
         if (b.deliveredParcels === a.deliveredParcels) {
           return b.averageRating - a.averageRating;
         }
         return b.deliveredParcels - a.deliveredParcels;
       });
 
-      setSortedDeliveryMen(sortedData.slice(0, 3));
+      setSortedDeliveryMan(sortedData.slice(0, 3));
     };
 
-    if (deliveryMen.length > 0) {
+    if (deliveryMans.length > 0) {
       fetchData();
     }
-  }, [deliveryMen, axiosPublic]);
+  }, [deliveryMans, axiosPublic]);
 
-  if (deliveryMenLoading) {
+  if (isLoading) {
     return <div>......</div>;
   }
-  console.log(sortedDeliveryMen);
 
 
   return (
     <div className="mb-8 md:mb-12">
       <SectionTitle heading={"Top Delivery Man"} />\
       <div className="grid lg:max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4 md:mx-2 lg:mx-auto">
-        {sortedDeliveryMen.map((item, idx) => (
+        {sortedDeliveryMan.map((item, idx) => (
           <TopDeliveryManCard key={idx} item={item} />
         ))}
       </div>
