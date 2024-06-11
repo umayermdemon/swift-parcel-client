@@ -4,17 +4,28 @@ import { TbTruckDelivery } from "react-icons/tb";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
-import useBookedParcel from "../../../../hooks/useBookedParcel";
+import { useQuery } from "@tanstack/react-query";
 
 const AllUsersCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
-  const [bookedParcel]=useBookedParcel()
-  console.log(bookedParcel)
-  const { name, role, _id,phoneNumber } = user || {};
+  const { name, role, _id, phoneNumber, email } = user || {};
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
+  const { data: parcelBooked = [] } = useQuery({
+    queryKey: [email, "parcelBooked"],
+    enabled: !!email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels/bookedParcel/${email}`);
+      return res.data;
+    },
+  });
+  console.log(parcelBooked);
 
+  const totalSpent = parcelBooked.reduce(
+    (total, parcel) => total + parcel.price,
+    0
+  );
 
   const handleAdmin = (id) => {
     axiosSecure.patch(`/users/admin/${id}`).then((res) => {
@@ -35,40 +46,37 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
   return (
     <tr key={_id}>
       <td className={classes}>
-        <Typography variant="small" color="blue-gray" className="font-normal">
+        <Typography variant="h6" color="blue-gray" className="font-medium">
           {name}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
-        <Typography variant="small" color="blue-gray" className="font-normal">
+        <Typography variant="h6" color="blue-gray" className="font-medium">
           {phoneNumber}
         </Typography>
       </td>
       <td className={classes}>
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          
+        <Typography variant="h6" color="blue" className="font-medium">
+          {parcelBooked.length}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography
-          as="a"
-          href="#"
-          variant="small"
-          color="blue-gray"
-          className="font-medium"
+          variant="h6"
+          className="font-medium text-[#28a745]"
         >
-          Total spent
+          {totalSpent}
         </Typography>
       </td>
       <td className={classes}>
         <Typography
-          variant="small"
+          variant="h6"
           color="blue-gray"
-          className="font-normal flex flex-row items-center justify-center gap-1"
+          className="font-medium flex flex-row items-center justify-center gap-1"
         >
-          {role} 
+          {role}
           {role === "Admin" && <RiAdminFill />}
-          {role === "User" && <FaUser className="text-gray-400"/>}
+          {role === "User" && <FaUser className="text-gray-400" />}
           {role === "Delivery Man" && <TbTruckDelivery />}
         </Typography>
       </td>
@@ -86,7 +94,6 @@ const AllUsersCard = ({ user, isLast, refetch }) => {
           </button>
         </Typography>
       </td>
-     
     </tr>
   );
 };

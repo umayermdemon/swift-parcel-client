@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 const AllDeliveryManCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const { name, _id, phoneNumber } = user || {};
-  console.log(_id);
   const classes = isLast
     ? "p-4 text-center"
     : "p-4 border-b text-center border-blue-gray-50";
@@ -20,15 +19,14 @@ const AllDeliveryManCard = ({ user, isLast, refetch }) => {
     });
   };
 
-  const { data: parcels = [] } = useQuery({
-    queryKey: [_id, "parcels"],
+  const { data: deliveredParcels = [] } = useQuery({
+    queryKey: [_id, "deliveredParcels"],
     enabled: !!_id,
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels/parcelDelivered/${_id}`);
       return res.data;
     },
   });
-  console.log(parcels);
 
   return (
     <tr key={_id}>
@@ -44,7 +42,7 @@ const AllDeliveryManCard = ({ user, isLast, refetch }) => {
       </td>
       <td className={classes}>
         <Typography variant="h6" color="blue" className="font-normal">
-          {parcels.length}
+          {deliveredParcels.length}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>
