@@ -38,7 +38,7 @@ const MyParcel = () => {
       >
         <div className="bg-[#0E3557] max-w-6xl flex justify-between  p-2 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
-            Total Parcels: {bookedParcel.length}
+            Total Parcels: {filteredParcels.length}
           </h2>
           <div className="bg-white rounded-md">
             <select
