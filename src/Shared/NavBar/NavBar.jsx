@@ -100,7 +100,7 @@ const NavBar = () => {
                         <Avatar
                           variant="circular"
                           size="sm"
-                          alt="tania andrew"
+                          alt=""
                           className="border border-gray-900 p-0.5"
                           src={user?.photoURL}
                         />
@@ -147,7 +147,7 @@ const NavBar = () => {
                         <Avatar
                           variant="circular"
                           size="sm"
-                          alt="tania andrew"
+                          alt=""
                           className="border border-gray-900 p-0.5"
                           src={user?.photoURL}
                         />
@@ -194,7 +194,7 @@ const NavBar = () => {
                         <Avatar
                           variant="circular"
                           size="sm"
-                          alt="tania andrew"
+                          alt=""
                           className="border border-gray-900 p-0.5"
                           src={user?.photoURL}
                         />

@@ -51,7 +51,7 @@ const Dashboard = () => {
                 <Avatar
                   variant="circular"
                   size="sm"
-                  alt="tania andrew"
+                  alt=""
                   className="border border-gray-900 p-0.5"
                   src={user?.photoURL}
                 />
@@ -81,7 +81,7 @@ const Dashboard = () => {
             <Avatar
               variant="circular"
               size="sm"
-              alt="tania andrew"
+              alt=""
               className="border border-gray-900 p-0.5"
               src={user?.photoURL}
             />

@@ -28,7 +28,7 @@ const ReviewsCard = ({ review }) => {
             size="lg"
             variant="circular"
             src={userImage}
-            alt="tania andrew"
+            alt=""
           />
           <div className="flex w-full flex-col gap-0.5">
             <div className="flex items-center justify-between">

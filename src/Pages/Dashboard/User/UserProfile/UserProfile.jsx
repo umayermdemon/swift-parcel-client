@@ -3,6 +3,7 @@ import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../../../firebase/firebase.config";
+import { useState } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -10,6 +11,8 @@ const UserProfile = () => {
   const { user } = useAuth();
 
   const axiosPublic = useAxiosPublic();
+  const [profileImage, setProfileImage] = useState(user?.photoURL);
+
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
@@ -22,27 +25,28 @@ const UserProfile = () => {
     });
     console.log(res);
     if (res.data.success) {
+      const imageUrl = res.data.data.display_url;
       updateProfile(auth.currentUser, {
-        photoURL: res.data.data.display_url,
+        photoURL: imageUrl,
       })
         .then(() => {
-          // Profile updated!
-          // ...
+          setProfileImage(imageUrl);
+          window.location.reload()
         })
         .catch((error) => {
           console.error(error);
         });
+
+       
     }
   };
 
   return (
     <div>
       <div className="flex justify-center">
-        {/* <img src={user?.photoURL} alt="" className="rounded-full h-64 w-64" />
-        <Avatar src={user?.photoURL} alt="avatar" size="xxl" /> */}
         <div className="avatar">
           <div className="w-40 h-40 rounded">
-            <img src={user?.photoURL} />
+            <img src={profileImage} />
           </div>
         </div>
       </div>
