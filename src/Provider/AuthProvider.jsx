@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUSerProfile = (name, photo) => {
+  const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
     loader,
     createUser,
     signInUser,
-    updateUSerProfile,
+    updateUserProfile,
     logOut,
     googleRegister,
     githubRegister,

@@ -2,6 +2,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useAllUsers from "../../../../hooks/useAllUsers";
 import AllUsersCard from "./AllUsersCard";
+import { Triangle } from "react-loader-spinner";
 const TABLE_HEAD = [
   "Name",
   "Phone Number",
@@ -13,7 +14,22 @@ const TABLE_HEAD = [
 ];
 
 const AllUsers = () => {
-  const [users, refetch] = useAllUsers();
+  const [users, refetch,isLoading] = useAllUsers();
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-96">
+        <Triangle
+          visible={true}
+          height="80"
+          width="80"
+          color="#0E3557"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
   return (
     <div>
       <SectionTitle heading={"All Users"} />

@@ -13,7 +13,7 @@ import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { createUser, updateUSerProfile, logOut } = useAuth();
+  const { createUser, updateUserProfile, logOut } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm();
   const axiosPublic = useAxiosPublic();
@@ -32,7 +32,7 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         if (result.user) {
-          updateUSerProfile(name, photo)
+          updateUserProfile(name, photo)
             .then(() => {
               const userInfo = {
                 name: name,

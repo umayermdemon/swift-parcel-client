@@ -19,7 +19,7 @@ import useSingleUser from "../../../hooks/useSingleUser";
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user } = useAuth();
-  const [users]=useSingleUser()
+  const [users] = useSingleUser();
 
   return (
     <div className="bg-[#AFB9C5] w-full pt-4 md:pt-12 lg:pt-5 min-h-screen">
@@ -79,21 +79,21 @@ const Dashboard = () => {
         <div className="hidden lg:block">
           <div className="flex items-center gap-2">
             <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src={user?.photoURL}
-          />
-          <Typography
-            color="black"
-            className="text-sm font-bold text-white flex gap-1 items-center"
-          >
-            {users?.role === "Admin" && <RiAdminFill />}
-            {users?.role === "User" && <FaUser />}
-            {users?.role === "Delivery Man" && <TbTruckDelivery />}
-            {users?.role}
-          </Typography>
+              variant="circular"
+              size="sm"
+              alt="tania andrew"
+              className="border border-gray-900 p-0.5"
+              src={user?.photoURL}
+            />
+            <Typography
+              color="black"
+              className="text-sm font-bold text-white flex gap-1 items-center"
+            >
+              {users?.role === "Admin" && <RiAdminFill />}
+              {users?.role === "User" && <FaUser />}
+              {users?.role === "Delivery Man" && <TbTruckDelivery />}
+              {users?.role}
+            </Typography>
           </div>
         </div>
         {/* small device dashboard extra design end  */}
@@ -104,11 +104,7 @@ const Dashboard = () => {
       <div className="flex flex-row lg:pb-12 px-2 md:px-4 lg:px-48">
         <div className=" bg-[#0E3557] w-72 lg:w-80 hidden lg:block  rounded-bl-2xl">
           <div className="my-4 flex flex-col items-center justify-center">
-            <img
-              src={user?.photoURL}
-              alt={user?.displayName}
-              className="rounded-full w-24"
-            />
+            <Avatar src={user?.photoURL} alt="avatar" size="xxl" />
             <Typography variant="h5" color="white" className="my-2">
               {user?.displayName}
             </Typography>

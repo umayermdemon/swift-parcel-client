@@ -25,6 +25,8 @@ const AllDeliveryManCard = ({ user, isLast }) => {
       return res.data;
     },
   });
+
+  const filteredDeliveredParcels=deliveredParcels.filter(parcel=>parcel.status ==="Delivered")
   const totalRating = reviews.reduce(
     (total, review) => total + review.rating,
     0
@@ -45,7 +47,7 @@ const AllDeliveryManCard = ({ user, isLast }) => {
       </td>
       <td className={classes}>
         <Typography variant="h6" color="blue" className="font-normal">
-          {deliveredParcels.length}
+          {filteredDeliveredParcels.length}
         </Typography>
       </td>
       <td className={`${classes} bg-blue-gray-50/50`}>

@@ -2,6 +2,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import AllDeliveryManCard from "./AllDeliveryManCard";
 import useAllDeliveryMan from "../../../../hooks/useAllDeliveryMan";
+import { Triangle } from "react-loader-spinner";
 
 const TABLE_HEAD = [
   "Name",
@@ -11,7 +12,22 @@ const TABLE_HEAD = [
 ];
 
 const AllDeliveryMan = () => {
-  const [deliveryMan, refetch] = useAllDeliveryMan();
+  const [deliveryMan, refetch,isLoading] = useAllDeliveryMan();
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-96">
+        <Triangle
+          visible={true}
+          height="80"
+          width="80"
+          color="#0E3557"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
   return (
     <div>
       <SectionTitle heading={"All Delivery Man"} />

@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Triangle } from "react-loader-spinner";
 
 const TABLE_HEAD = [
   "User’s Name",
@@ -21,11 +22,26 @@ const TABLE_HEAD = [
 ];
 
 const AllParcels = () => {
-  const [parcels, refetch] = useAllParcels();
+  const [parcels, refetch,isLoading] = useAllParcels();
   const [bookingId, setBookingId] = useState(null);
   const axiosSecure = useAxiosSecure();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-96">
+        <Triangle
+          visible={true}
+          height="80"
+          width="80"
+          color="#0E3557"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   const handleManage = (id) => {
     setBookingId(id);
@@ -69,18 +85,18 @@ const AllParcels = () => {
       <SectionTitle heading="ALL Parcels" />
       <div
         className={
-          parcels.length > 6
+          filteredParcels.length > 6
             ? "max-w-6xl md:mx-2 md:h-full lg:h-[550px] lg:mx-auto"
             : "max-w-6xl md:mx-2 lg:mx-auto"
         }
       >
-        <div className="bg-[#0E3557] flex justify-between max-w-6xl p-2 rounded-tl-xl rounded-tr-xl">
+        <div className="bg-[#0E3557] flex justify-between items-center max-w-6xl p-2 rounded-tl-xl rounded-tr-xl">
           <div>
-            <h2 className="text-white  font-semibold ml-4 pt-2">
+            <h2 className="text-white text-sm md:text-lg font-semibold md:ml-4 pt-2">
               Total Parcels: {filteredParcels.length}
             </h2>
           </div>
-          <div className="flex  gap-4">
+          <div className="flex gap-1 md:gap-4">
             <DatePicker
               selected={startDate}
               onChange={(date) => setStartDate(date)}
@@ -88,7 +104,7 @@ const AllParcels = () => {
               startDate={startDate}
               endDate={endDate}
               placeholderText="Select Start Date"
-              className="bg-white rounded-md p-2"
+              className="bg-white rounded-md p-1 md:p-2 w-36 md:w-full"
             />
             <DatePicker
               selected={endDate}
@@ -98,7 +114,7 @@ const AllParcels = () => {
               endDate={endDate}
               minDate={startDate}
               placeholderText="Select End Date"
-              className="bg-white rounded-md p-2"
+              className="bg-white rounded-md p-1 md:p-2 w-36 md:w-full"
             />
           </div>
         </div>

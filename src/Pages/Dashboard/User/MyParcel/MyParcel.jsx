@@ -3,6 +3,7 @@ import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useBookedParcel from "../../../../hooks/useBookedParcel";
 import MyParcelCard from "./MyParcelCard";
 import { useState } from "react";
+import { Triangle } from "react-loader-spinner";
 const TABLE_HEAD = [
   "Parcel Type",
   "Requested Delivery Date",
@@ -16,10 +17,24 @@ const TABLE_HEAD = [
   "Pay",
 ];
 const MyParcel = () => {
-  const [bookedParcel, refetch] = useBookedParcel();
+  const [bookedParcel, refetch, isLoading] = useBookedParcel();
   const [filter, setFilter] = useState("All");
-
-  const handleFilterChange = e => {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-96">
+        <Triangle
+          visible={true}
+          height="80"
+          width="80"
+          color="#0E3557"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
+  const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
   const filteredParcels = bookedParcel.filter((parcel) => {

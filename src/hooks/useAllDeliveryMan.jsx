@@ -3,14 +3,14 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAllDeliveryMan = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: deliveryMan = [], refetch } = useQuery({
+  const { data: deliveryMan = [], refetch,isLoading } = useQuery({
     queryKey: ["deliveryMan"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/Delivery Man");
       return res.data;
     },
   });
-  return [deliveryMan, refetch];
+  return [deliveryMan, refetch,isLoading];
 };
 
 export default useAllDeliveryMan;

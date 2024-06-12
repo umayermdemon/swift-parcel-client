@@ -7,7 +7,6 @@ import Register from "../Pages/Register/Register";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import BookParcel from "../Pages/Dashboard/User/BookParcel/BookParcel";
-import UserHome from "../Pages/Dashboard/User/UserHome/UserHome";
 import MyParcel from "../Pages/Dashboard/User/MyParcel/MyParcel";
 import UserProfile from "../Pages/Dashboard/User/UserProfile/UserProfile";
 import AllParcels from "../Pages/Dashboard/Admin/AllParcels/AllParcels";
@@ -45,10 +44,6 @@ export const router = createBrowserRouter([
     ),
     children: [
       // user route
-      {
-        path: "userHome",
-        element: <UserHome />,
-      },
       {
         path: "bookParcel",
         element: <BookParcel />,

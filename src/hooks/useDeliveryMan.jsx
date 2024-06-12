@@ -9,7 +9,7 @@ const useDeliveryMan = () => {
  
   const {data: isDeliveryMan ,isLoading}=useQuery({
     queryKey:[user?.email,'isDeliveryMan'],
-    enabled:!! user?.email,
+    enabled:!! localStorage.getItem('access-token') && !! user?.email,
     queryFn: async()=>{
       const res= await axiosSecure.get(`/users/deliveryMan/${user?.email}`);
       return res.data.isDeliveryMan;

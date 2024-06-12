@@ -11,21 +11,20 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import logo from "../../assets/logo/logo3.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { FaPowerOff, FaUser } from "react-icons/fa";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { IoIosNotifications } from "react-icons/io";
+import { LineWave } from "react-loader-spinner";
+import useAdmin from "../../hooks/useAdmin";
+import useDeliveryMan from "../../hooks/useDeliveryMan";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
-  const { user, logOut } = useAuth();
-
-  const handelLogout = () => {
-    logOut();
-  };
-
+  const [isAdmin] = useAdmin();
+  const [isDeliveryMan, isLoading] = useDeliveryMan();
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -33,6 +32,29 @@ const NavBar = () => {
     );
   }, []);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { user, logOut } = useAuth();
+  if (isLoading) {
+    return (
+      <div className="flex mx-auto justify-center items-center">
+        <LineWave
+          visible={true}
+          height="100"
+          width="100"
+          color="#0B2D42"
+          ariaLabel="line-wave-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          firstLineColor=""
+          middleLineColor=""
+          lastLineColor=""
+        />
+      </div>
+    );
+  }
+
+  const handelLogout = () => {
+    logOut();
+  };
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 text-black lg:mb-0 lg:mt-0 lg:flex-row lg:items-center ">
@@ -62,52 +84,148 @@ const NavBar = () => {
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-4">
             {user ? (
-              <div>
-                <Menu
-                  open={isMenuOpen}
-                  handler={setIsMenuOpen}
-                  placement="bottom-end"
-                >
-                  <MenuHandler>
-                    <Button
-                      variant="text"
-                      color="blue-gray"
-                      className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-                    >
-                      <Avatar
-                        variant="circular"
-                        size="sm"
-                        alt="tania andrew"
-                        className="border border-gray-900 p-0.5"
-                        src={user?.photoURL}
-                      />
-                      <ChevronDownIcon
-                        strokeWidth={2.5}
-                        className={`h-3 w-3 transition-transform ${
-                          isMenuOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </Button>
-                  </MenuHandler>
-                  <MenuList className="px-4 py-2">
-                    <Typography className="flex gap-3 items-center">
-                      <FaUser /> {user?.displayName}
-                    </Typography>
-                    <Link to="/dashboard">
-                      <Typography className="flex my-4 gap-3 items-center">
-                        <MdOutlineDashboardCustomize /> Dashboard
+              isAdmin ? (
+                <div>
+                  <Menu
+                    open={isMenuOpen}
+                    handler={setIsMenuOpen}
+                    placement="bottom-end"
+                  >
+                    <MenuHandler>
+                      <Button
+                        variant="text"
+                        color="blue-gray"
+                        className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                      >
+                        <Avatar
+                          variant="circular"
+                          size="sm"
+                          alt="tania andrew"
+                          className="border border-gray-900 p-0.5"
+                          src={user?.photoURL}
+                        />
+                        <ChevronDownIcon
+                          strokeWidth={2.5}
+                          className={`h-3 w-3 transition-transform ${
+                            isMenuOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </Button>
+                    </MenuHandler>
+                    <MenuList className="px-4 py-2">
+                      <Typography className="flex gap-3 items-center">
+                        <FaUser /> {user?.displayName}
                       </Typography>
-                    </Link>
-                    <Typography
-                      onClick={handelLogout}
-                      className="flex cursor-pointer my-4 gap-3 items-center"
-                    >
-                      <FaPowerOff />
-                      Log Out
-                    </Typography>
-                  </MenuList>
-                </Menu>
-              </div>
+                      <NavLink to="/dashboard/statistics">
+                        <Typography className="flex my-4 gap-3 items-center">
+                          <MdOutlineDashboardCustomize /> Dashboard
+                        </Typography>
+                      </NavLink>
+                      <Typography
+                        onClick={handelLogout}
+                        className="flex cursor-pointer my-4 gap-3 items-center"
+                      >
+                        <FaPowerOff />
+                        Log Out
+                      </Typography>
+                    </MenuList>
+                  </Menu>
+                </div>
+              ) : !isDeliveryMan ? (
+                <div>
+                  <Menu
+                    open={isMenuOpen}
+                    handler={setIsMenuOpen}
+                    placement="bottom-end"
+                  >
+                    <MenuHandler>
+                      <Button
+                        variant="text"
+                        color="blue-gray"
+                        className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                      >
+                        <Avatar
+                          variant="circular"
+                          size="sm"
+                          alt="tania andrew"
+                          className="border border-gray-900 p-0.5"
+                          src={user?.photoURL}
+                        />
+                        <ChevronDownIcon
+                          strokeWidth={2.5}
+                          className={`h-3 w-3 transition-transform ${
+                            isMenuOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </Button>
+                    </MenuHandler>
+                    <MenuList className="px-4 py-2">
+                      <Typography className="flex gap-3 items-center">
+                        <FaUser /> {user?.displayName}
+                      </Typography>
+                      <NavLink to="/dashboard/userProfile">
+                        <Typography className="flex my-4 gap-3 items-center">
+                          <MdOutlineDashboardCustomize /> Dashboard
+                        </Typography>
+                      </NavLink>
+                      <Typography
+                        onClick={handelLogout}
+                        className="flex cursor-pointer my-4 gap-3 items-center"
+                      >
+                        <FaPowerOff />
+                        Log Out
+                      </Typography>
+                    </MenuList>
+                  </Menu>
+                </div>
+              ) : (
+                <div>
+                  <Menu
+                    open={isMenuOpen}
+                    handler={setIsMenuOpen}
+                    placement="bottom-end"
+                  >
+                    <MenuHandler>
+                      <Button
+                        variant="text"
+                        color="blue-gray"
+                        className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                      >
+                        <Avatar
+                          variant="circular"
+                          size="sm"
+                          alt="tania andrew"
+                          className="border border-gray-900 p-0.5"
+                          src={user?.photoURL}
+                        />
+                        <ChevronDownIcon
+                          strokeWidth={2.5}
+                          className={`h-3 w-3 transition-transform ${
+                            isMenuOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </Button>
+                    </MenuHandler>
+                    <MenuList className="px-4 py-2">
+                      <Typography className="flex gap-3 items-center">
+                        <FaUser /> {user?.displayName}
+                      </Typography>
+                      <NavLink to="/dashboard/deliveryList">
+                        <Typography className="flex my-4 gap-3 items-center">
+                          <MdOutlineDashboardCustomize /> Dashboard
+                        </Typography>
+                      </NavLink>
+                      <Typography
+                        onClick={handelLogout}
+                        className="flex cursor-pointer my-4 gap-3 items-center"
+                      >
+                        <FaPowerOff />
+                        Log Out
+                      </Typography>
+                    </MenuList>
+                  </Menu>
+                </div>
+              )
             ) : (
               <div className="flex items-center gap-x-1">
                 <Link to="/login">

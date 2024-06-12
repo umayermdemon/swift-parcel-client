@@ -37,6 +37,17 @@ const SidePanelLarge = () => {
       {isAdmin ? (
         <div className="mx-4 lg:mx-8 mb-8 mt-12 space-y-8">
           <NavLink
+            to="/dashboard/statistics"
+            className={({ isActive }) =>
+              isActive
+                ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
+                : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
+            }
+          >
+            <MdOutlineAutoGraph />
+            Statistics
+          </NavLink>
+          <NavLink
             to="/dashboard/allParcels"
             className={({ isActive }) =>
               isActive
@@ -68,17 +79,6 @@ const SidePanelLarge = () => {
           >
             <FaUsersCog />
             All Delivery Men
-          </NavLink>
-          <NavLink
-            to="/dashboard/statistics"
-            className={({ isActive }) =>
-              isActive
-                ? "flex text-[#F5AB35] flex-row gap-4 lg:gap-6 items-center text-lg font-semibold"
-                : "flex flex-row gap-4 lg:gap-6 items-center text-lg font-semibold text-white"
-            }
-          >
-            <MdOutlineAutoGraph />
-            Statistics
           </NavLink>
         </div>
       ) : isDeliveryMan ? (

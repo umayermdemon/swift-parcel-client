@@ -4,14 +4,14 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAllParcels = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: parcels = [] , refetch} = useQuery({
+  const { data: parcels = [] , refetch,isLoading} = useQuery({
     queryKey: ["parcels"],
     queryFn: async () => {
       const res = await axiosSecure.get("/parcels");
       return res.data;
     },
   });
-  return [parcels, refetch]
+  return [parcels, refetch,isLoading]
 };
 
 export default useAllParcels;
