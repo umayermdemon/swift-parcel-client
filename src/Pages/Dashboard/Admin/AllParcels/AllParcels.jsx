@@ -1,12 +1,13 @@
-import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
-import { Card, Typography } from "@material-tailwind/react";
-import useAllParcels from "../../../../hooks/useAllParcels";
-// import { FaEdit } from "react-icons/fa";
-import ManageButtonModal from "../../../../Components/ManageButtonModal/ManageButtonModal";
 import { useState } from "react";
+import { Card, Typography } from "@material-tailwind/react";
+import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
+import useAllParcels from "../../../../hooks/useAllParcels";
+import ManageButtonModal from "../../../../Components/ManageButtonModal/ManageButtonModal";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TABLE_HEAD = [
   "User’s Name",
@@ -23,10 +24,13 @@ const AllParcels = () => {
   const [parcels, refetch] = useAllParcels();
   const [bookingId, setBookingId] = useState(null);
   const axiosSecure = useAxiosSecure();
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   const handleManage = (id) => {
     setBookingId(id);
-    console.log(id);
   };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -51,6 +55,15 @@ const AllParcels = () => {
       }
     });
   };
+
+  const filteredParcels = parcels.filter((parcel) => {
+    const parcelDate = new Date(parcel.requestedDeliveryDate);
+    return (
+      (!startDate || parcelDate >= startDate) &&
+      (!endDate || parcelDate <= endDate)
+    );
+  });
+
   return (
     <div>
       <SectionTitle heading="ALL Parcels" />
@@ -58,15 +71,38 @@ const AllParcels = () => {
         className={
           parcels.length > 6
             ? "max-w-6xl md:mx-2 md:h-full lg:h-[550px] lg:mx-auto"
-            : "max-w-6xl md:mx-2  lg:mx-auto"
+            : "max-w-6xl md:mx-2 lg:mx-auto"
         }
       >
-        <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
-          <h2 className="text-white font-semibold ml-4 pt-2">
-            Total Parcels:{parcels.length}
-          </h2>
+        <div className="bg-[#0E3557] flex justify-between max-w-6xl p-2 rounded-tl-xl rounded-tr-xl">
+          <div>
+            <h2 className="text-white  font-semibold ml-4 pt-2">
+              Total Parcels: {filteredParcels.length}
+            </h2>
+          </div>
+          <div className="flex  gap-4">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              placeholderText="Select Start Date"
+              className="bg-white rounded-md p-2"
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              placeholderText="Select End Date"
+              className="bg-white rounded-md p-2"
+            />
+          </div>
         </div>
-        {parcels.length > 0 && (
+        {filteredParcels.length > 0 && (
           <Card className="h-full w-full overflow-scroll">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
@@ -88,7 +124,7 @@ const AllParcels = () => {
                 </tr>
               </thead>
               <tbody>
-                {parcels.map(
+                {filteredParcels.map(
                   (
                     {
                       name,
@@ -101,10 +137,10 @@ const AllParcels = () => {
                     },
                     index
                   ) => {
-                    const isLast = index === parcels.length - 1;
+                    const isLast = index === filteredParcels.length - 1;
                     const classes = isLast
                       ? "p-4 text-center"
-                      : "p-4 text-center border-b  border-blue-gray-50";
+                      : "p-4 text-center border-b border-blue-gray-50";
                     return (
                       <tr key={_id}>
                         <td className={classes}>

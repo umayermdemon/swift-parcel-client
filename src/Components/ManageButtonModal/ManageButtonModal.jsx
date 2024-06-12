@@ -27,14 +27,14 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) =
       deliveryManId: deliveryManId,
       approximateDeliveryDate: approximateDeliveryDate,
     };
-    axiosSecure.put(`/parcels/${bookingId}`, dataInfo).then((res) => {
-      console.log(res.data)
+    axiosSecure(`/parcels/${bookingId}`, dataInfo).then((res) => {
       refetch()
       if (res.data.modifiedCount > 0) {
         toast.success("A delivery man has been appointed for the parcel ");
       }
     });
   };
+  
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -44,7 +44,6 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) =
         <FaEdit className={status=== "Pending"? "text-xl text-blue-400": "text-xl text-blue-100"} />
       </button>
       <Dialog open={open} size="xs" handler={handleOpen}>
-        ,
         <form onSubmit={handleForm}>
           <DialogBody>
             <Typography
