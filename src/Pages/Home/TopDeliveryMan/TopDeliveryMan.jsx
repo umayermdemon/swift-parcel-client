@@ -3,6 +3,7 @@ import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import TopDeliveryManCard from "./TopDeliveryManCard";
 import { useEffect, useState } from "react";
+import { RotatingTriangles } from "react-loader-spinner";
 
 const TopDeliveryMan = () => {
   const axiosPublic = useAxiosPublic();
@@ -34,7 +35,7 @@ const TopDeliveryMan = () => {
           );
           const parcels = getParcels.data;
           const reviews = getReviews.data;
-          const image=deliveryMan.image;
+          const image = deliveryMan.image;
           const totalRating = reviews.reduce(
             (total, review) => total + review.rating,
             0
@@ -44,8 +45,8 @@ const TopDeliveryMan = () => {
           return {
             ...deliveryMan,
             deliveredParcels: parcels.length,
-            averageRating:averageRating.toFixed(2),
-            image
+            averageRating: averageRating.toFixed(2),
+            image,
           };
         })
       );
@@ -66,13 +67,24 @@ const TopDeliveryMan = () => {
   }, [deliveryMans, axiosPublic]);
 
   if (isLoading) {
-    return <div>......</div>;
+    return (
+      <div className="w-full flex items-center text-5xl justify-center text-center">
+        <RotatingTriangles
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="rotating-triangles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
   }
-
 
   return (
     <div className="mb-8 md:mb-12">
-      <SectionTitle heading={"Top Delivery Man"} />\
+      <SectionTitle heading={"Top Delivery Man"} />
       <div className="grid lg:max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4 md:mx-2 lg:mx-auto">
         {sortedDeliveryMan.map((item, idx) => (
           <TopDeliveryManCard key={idx} item={item} />

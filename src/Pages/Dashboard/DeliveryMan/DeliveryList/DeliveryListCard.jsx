@@ -140,7 +140,7 @@ const DeliveryListCard = ({ item, isLast, refetch }) => {
       <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography variant="small" color="blue-gray" className="font-medium">
           <Button
-            disabled={status === "Delivered"}
+            disabled={status === "Delivered" || status === "Cancel"}
             className={status === "Delivered" ? "bg-green-400" : "bg-blue-600"}
             onClick={() => handleDeliver(_id)}
           >

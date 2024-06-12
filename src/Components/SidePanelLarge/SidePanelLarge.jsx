@@ -12,10 +12,26 @@ import { MdOutlineAutoGraph } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
 import useDeliveryMan from "../../hooks/useDeliveryMan";
+import { Triangle } from "react-loader-spinner";
 
 const SidePanelLarge = () => {
   const [isAdmin] = useAdmin();
-  const {isDeliveryMan} = useDeliveryMan();
+  const [isDeliveryMan, isLoading] = useDeliveryMan();
+  if (isLoading) {
+    return (
+      <div className="ml-24">
+        <Triangle
+          visible={true}
+          height="80"
+          width="80"
+          color="white"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
   return (
     <div className="pb-12">
       {isAdmin ? (

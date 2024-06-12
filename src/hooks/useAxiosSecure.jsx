@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://swift-parcel-server-b9a12.vercel.app/",
 });
 
 const useAxiosSecure = () => {

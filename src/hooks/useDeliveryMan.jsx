@@ -7,7 +7,7 @@ const useDeliveryMan = () => {
   const axiosSecure=useAxiosSecure();
   const {user}=useAuth()
  
-  const {data: isDeliveryMan}=useQuery({
+  const {data: isDeliveryMan ,isLoading}=useQuery({
     queryKey:[user?.email,'isDeliveryMan'],
     enabled:!! user?.email,
     queryFn: async()=>{
@@ -15,7 +15,7 @@ const useDeliveryMan = () => {
       return res.data.isDeliveryMan;
     }
   })
-  return {isDeliveryMan}
+  return [isDeliveryMan,isLoading]
 };
 
 export default useDeliveryMan;

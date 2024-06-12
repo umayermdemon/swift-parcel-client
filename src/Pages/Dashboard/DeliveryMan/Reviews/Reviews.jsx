@@ -9,7 +9,6 @@ const Reviews = () => {
   if(isLoading){
     return <div>Loading.......</div>
   }
-  console.log(reviews)
   return (
     <div>
       <SectionTitle heading={"My Reviews"}/>

@@ -40,7 +40,7 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) =
   };
   return (
     <div>
-      <button onClick={handleOpen} >
+      <button disabled={status != "Pending"} onClick={handleOpen} >
         <FaEdit className={status=== "Pending"? "text-xl text-blue-400": "text-xl text-blue-100"} />
       </button>
       <Dialog open={open} size="xs" handler={handleOpen}>

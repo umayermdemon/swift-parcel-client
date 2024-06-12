@@ -57,7 +57,7 @@ const AllParcels = () => {
       <div
         className={
           parcels.length > 6
-            ? "max-w-6xl md:mx-2 md:h-full lg:h-full lg:mx-auto"
+            ? "max-w-6xl md:mx-2 md:h-full lg:h-[550px] lg:mx-auto"
             : "max-w-6xl md:mx-2  lg:mx-auto"
         }
       >
@@ -177,16 +177,11 @@ const AllParcels = () => {
                         </td>
                         <td className={classes}>
                           <Typography
-                            as="a"
-                            href="#"
                             variant="small"
                             color="blue-gray"
                             className="font-medium text-center"
                           >
-                            <div
-                              disabled={status != "Pending"}
-                              onClick={() => handleManage(_id)}
-                            >
+                            <div onClick={() => handleManage(_id)}>
                               <ManageButtonModal
                                 bookingId={bookingId}
                                 refetch={refetch}
