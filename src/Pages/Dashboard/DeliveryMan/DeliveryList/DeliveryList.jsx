@@ -17,6 +17,7 @@ const TABLE_HEAD = [
 
 const DeliveryList = () => {
   const [deliveryList, refetch] = useDeliveryList();
+  console.log(deliveryList)
   return (
     <div>
       <SectionTitle heading={" My Delivery List"} />

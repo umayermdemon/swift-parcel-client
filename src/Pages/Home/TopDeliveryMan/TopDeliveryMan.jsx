@@ -8,19 +8,20 @@ import { RotatingTriangles } from "react-loader-spinner";
 const TopDeliveryMan = () => {
   const axiosPublic = useAxiosPublic();
   const roleInfo = {
-    status: "Delivery Man",
+    role: "Delivery Man",
   };
 
   const { data: deliveryMans = [], isLoading } = useQuery({
-    queryKey: [roleInfo.status, "deliveryMan"],
-    enabled: !!roleInfo.status,
+    queryKey: [roleInfo.role, "deliveryMan"],
+    enabled: !!roleInfo.role,
     queryFn: async () => {
       const res = await axiosPublic.get(
-        `/users/deliverymanRole/${roleInfo.status}`
+        `/users/deliverymanRole/${roleInfo.role}`
       );
       return res.data;
     },
   });
+  // console.log(deliveryMans)
   const [sortedDeliveryMan, setSortedDeliveryMan] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const TopDeliveryMan = () => {
             `/reviews/${deliveryMan._id}`
           );
           const parcels = getParcels.data;
+          const filteredParcels=parcels.filter(parcel=>parcel.status==="Delivered")
           const reviews = getReviews.data;
           const image = deliveryMan.image;
           const totalRating = reviews.reduce(
@@ -44,7 +46,7 @@ const TopDeliveryMan = () => {
             reviews.length > 0 ? totalRating / reviews.length : 0;
           return {
             ...deliveryMan,
-            deliveredParcels: parcels.length,
+            deliveredParcels: filteredParcels.length,
             averageRating: averageRating.toFixed(2),
             image,
           };
