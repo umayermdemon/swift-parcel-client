@@ -7,6 +7,7 @@ const useBookedParcel = () => {
   const {user}=useAuth()
   const {data:bookedParcel=[],refetch,isLoading}=useQuery({
     queryKey:[ 'bookedParcel'],
+    enabled: !!localStorage.getItem("access-token"),
     queryFn: async ()=>{
       const res= await axiosSecure.get(`/parcels/parcel/${user?.email}`)
       return res.data

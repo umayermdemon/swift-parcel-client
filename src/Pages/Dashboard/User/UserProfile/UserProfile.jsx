@@ -13,7 +13,6 @@ const UserProfile = () => {
   const axiosPublic = useAxiosPublic();
   const [profileImage, setProfileImage] = useState(user?.photoURL);
 
-
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     console.log(data);
@@ -36,8 +35,6 @@ const UserProfile = () => {
         .catch((error) => {
           console.error(error);
         });
-
-       
     }
   };
 

@@ -8,6 +8,7 @@ const useGetReviews = () => {
   const [users] = useSingleUser();
   const { data: reviews,isLoading } = useQuery({
     queryKey: [users?._id,"reviews"],
+    enabled: !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure.get(`/reviews/${users?._id}`);
       return res.data;

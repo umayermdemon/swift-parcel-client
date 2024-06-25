@@ -17,7 +17,7 @@ At **Swift Parcel**, our mission is to provide the most efficient and reliable p
 
 ## 🔗 Live link
 
-### Click here for the live link: https://swift-parcel-7b99a.web.app/
+### Click here for the live link: https://swift-parcel-7b99a.web.app
 
 ## Admin
 ### Username:usama@gmail.com

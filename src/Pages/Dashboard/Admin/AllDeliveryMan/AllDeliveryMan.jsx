@@ -38,7 +38,7 @@ const AllDeliveryMan = () => {
         }>
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
-            Total Users: {deliveryMan.length}
+            Total Deliveryman: {deliveryMan.length}
           </h2>
         </div>
         {deliveryMan.length > 0 && (

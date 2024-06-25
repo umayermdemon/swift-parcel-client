@@ -15,9 +15,7 @@ const TopDeliveryMan = () => {
     queryKey: [roleInfo.role, "deliveryMan"],
     enabled: !!roleInfo.role,
     queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/users/deliverymanRole/${roleInfo.role}`
-      );
+      const res = await axiosPublic.get(`/users/deliverymanRole/${roleInfo.role}`);
       return res.data;
     },
   });

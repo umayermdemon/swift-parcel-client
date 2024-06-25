@@ -33,6 +33,10 @@ const NavBar = () => {
   }, []);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user, logOut } = useAuth();
+
+  const handelLogout = () => {
+    logOut();
+  };
   if (isLoading) {
     return (
       <div className="flex mx-auto justify-center items-center">
@@ -51,10 +55,6 @@ const NavBar = () => {
       </div>
     );
   }
-
-  const handelLogout = () => {
-    logOut();
-  };
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 text-black lg:mb-0 lg:mt-0 lg:flex-row lg:items-center ">
@@ -249,6 +249,78 @@ const NavBar = () => {
                 </Link>
               </div>
             )}
+
+            {/* {user ? (
+              <div>
+                <Menu
+                  open={isMenuOpen}
+                  handler={setIsMenuOpen}
+                  placement="bottom-end"
+                >
+                  <MenuHandler>
+                    <Button
+                      variant="text"
+                      color="blue-gray"
+                      className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                    >
+                      <Avatar
+                        variant="circular"
+                        size="sm"
+                        alt=""
+                        className="border border-gray-900 p-0.5"
+                        src={user?.photoURL}
+                      />
+                      <ChevronDownIcon
+                        strokeWidth={2.5}
+                        className={`h-3 w-3 transition-transform ${
+                          isMenuOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </Button>
+                  </MenuHandler>
+                  <MenuList className="px-4 py-2">
+                    <Typography className="flex gap-3 items-center">
+                      <FaUser /> {user?.displayName}
+                    </Typography>
+                    <NavLink to="/dashboard">
+                      <Typography className="flex my-4 gap-3 items-center">
+                        <MdOutlineDashboardCustomize /> Dashboard
+                      </Typography>
+                    </NavLink>
+                    <Typography
+                      onClick={handelLogout}
+                      className="flex cursor-pointer my-4 gap-3 items-center"
+                    >
+                      <FaPowerOff />
+                      Log Out
+                    </Typography>
+                  </MenuList>
+                </Menu>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-1">
+                <Link to="/login">
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    Log In
+                  </Button>
+                </Link>
+                <span className="hidden lg:inline-block">/</span>
+                <Link to="/register">
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            )} */}
+
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

@@ -22,7 +22,7 @@ const TABLE_HEAD = [
 ];
 
 const AllParcels = () => {
-  const [parcels, refetch,isLoading] = useAllParcels();
+  const [parcels, refetch, isLoading] = useAllParcels();
   const [bookingId, setBookingId] = useState(null);
   const axiosSecure = useAxiosSecure();
   const [startDate, setStartDate] = useState(null);
@@ -150,6 +150,7 @@ const AllParcels = () => {
                       price,
                       status,
                       _id,
+                      payment_status,
                     },
                     index
                   ) => {
@@ -239,6 +240,7 @@ const AllParcels = () => {
                                 refetch={refetch}
                                 requestedDeliveryDate={requestedDeliveryDate}
                                 status={status}
+                                payment_status={payment_status}
                               />
                             </div>
                           </Typography>
@@ -252,11 +254,16 @@ const AllParcels = () => {
                             className="font-medium text-center"
                           >
                             <button
-                              className="cursor-pointer"
                               disabled={status != "Cancel"}
                               onClick={() => handleDelete(_id)}
                             >
-                              <MdDelete className="text-red-600 text-xl" />
+                              <MdDelete
+                                className={
+                                  status != "Cancel"
+                                    ? "text-red-300 text-xl"
+                                    : "text-red-600 text-xl cursor-pointer"
+                                }
+                              />
                             </button>
                           </Typography>
                         </td>

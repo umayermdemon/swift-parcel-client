@@ -11,6 +11,7 @@ const useDeliveryList = () => {
     isLoading,
   } = useQuery({
     queryKey: [users?._id, "deliveryList"],
+    enabled: !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels/deliveryMan/${users?._id}`);
       return res.data;

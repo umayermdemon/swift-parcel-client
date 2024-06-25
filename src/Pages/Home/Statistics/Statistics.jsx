@@ -49,7 +49,7 @@ const Statistics = () => {
               </Typography>
               <CountUp
                 duration={4}
-                end={parcels.length}
+                end={parcels?.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />
             </div>
@@ -74,7 +74,7 @@ const Statistics = () => {
               </Typography>
               <CountUp
                 duration={4}
-                end={deliveredParcels.length}
+                end={deliveredParcels?.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />
             </div>
@@ -99,7 +99,7 @@ const Statistics = () => {
               </Typography>
               <CountUp
                 duration={4}
-                end={users.length}
+                end={users?.length}
                 className="text-white text-xl md:text-3xl lg:text-5xl font-bold"
               />
             </div>

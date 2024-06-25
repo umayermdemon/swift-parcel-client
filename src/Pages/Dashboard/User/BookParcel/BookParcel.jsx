@@ -244,7 +244,7 @@ const BookParcel = () => {
         </div>
         <div className="flex  justify-center">
           <Button type="submit" className="bg-[#F5AB35] text-sm">
-            Book Now{" "}
+            Book Now
           </Button>
         </div>
       </form>

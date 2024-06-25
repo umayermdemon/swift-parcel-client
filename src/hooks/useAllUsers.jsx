@@ -5,6 +5,7 @@ const useAllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch,isLoading } = useQuery({
     queryKey: ["users"],
+    enabled: !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure.get("/users/User");
       return res.data;

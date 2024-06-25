@@ -6,10 +6,11 @@ import { useState } from "react";
 import { Triangle } from "react-loader-spinner";
 const TABLE_HEAD = [
   "Parcel Type",
-  "Requested Delivery Date",
-  "Approximate Delivery Date",
+  "Delivery Date (R)",
+  "Delivery Date (A)",
   "Booking Date",
   "Delivery Men ID",
+  "Trans_Id",
   "Booking Status",
   "Update",
   "Cancel",
@@ -72,7 +73,7 @@ const MyParcel = () => {
           </div>
         </div>
         {filteredParcels.length > 0 && (
-          <Card className="h-full  w-full overflow-scroll ">
+          <Card className="h-[500px]  w-full overflow-scroll ">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
@@ -106,6 +107,13 @@ const MyParcel = () => {
               </tbody>
             </table>
           </Card>
+        )}
+        {filteredParcels.length > 0 && (
+          <div className="flex flex-row items-center gap-2 mt-1">
+            <span>**</span>
+            <h4 className="text-xs"> (R) Requested</h4>
+            <h4 className="text-xs">(A) Approximate</h4>
+          </div>
         )}
       </div>
     </div>

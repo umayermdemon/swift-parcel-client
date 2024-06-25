@@ -12,7 +12,13 @@ import useAllDeliveryMan from "../../hooks/useAllDeliveryMan";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
-const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) => {
+const ManageButtonModal = ({
+  bookingId,
+  refetch,
+  requestedDeliveryDate,
+  status,
+  payment_status,
+}) => {
   const [open, setOpen] = React.useState(false);
   const [deliveryMan] = useAllDeliveryMan();
   const axiosSecure = useAxiosSecure();
@@ -27,27 +33,44 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) =
       deliveryManId: deliveryManId,
       approximateDeliveryDate: approximateDeliveryDate,
     };
-    axiosSecure(`/parcels/${bookingId}`, dataInfo).then((res) => {
-      refetch()
+    axiosSecure.put(`/parcels/${bookingId}`, dataInfo).then((res) => {
+      console.log(res.data);
+      refetch();
       if (res.data.modifiedCount > 0) {
         toast.success("A delivery man has been appointed for the parcel ");
       }
     });
   };
-  
+
   const handleOpen = () => {
     setOpen(!open);
   };
   return (
     <div>
-      <button disabled={status != "Pending"} onClick={handleOpen} >
-        <FaEdit className={status=== "Pending"? "text-xl text-blue-400": "text-xl text-blue-100"} />
-      </button>
+      {status != "Cancel" ? (
+        payment_status ? (
+          <button disabled={status != "Pending"} onClick={handleOpen}>
+            <FaEdit
+              className={
+                status === "Pending"
+                  ? "text-xl text-blue-400"
+                  : "text-xl text-blue-100"
+              }
+            />
+          </button>
+        ) : (
+          <button disabled onClick={handleOpen} className="font-semibold">
+            Unpaid
+          </button>
+        )
+      ) : (
+        <h3 className="font-medium text-red-800">Canceled</h3>
+      )}
       <Dialog open={open} size="xs" handler={handleOpen}>
         <form onSubmit={handleForm}>
           <DialogBody>
             <Typography
-              className="mb-10 font-bold text-center -mt-7 "
+              className="mb-10 font-bold text-center "
               color="black"
               variant="lead"
             >
@@ -81,11 +104,7 @@ const ManageButtonModal = ({ bookingId,refetch,requestedDeliveryDate,status }) =
             <Button variant="text" color="red" onClick={handleOpen}>
               cancel
             </Button>
-            <Button
-              type="submit"
-              className="bg-[#0E3557]"
-              onClick={handleOpen}
-            >
+            <Button type="submit" className="bg-[#0E3557]" onClick={handleOpen}>
               Assign
             </Button>
           </DialogFooter>

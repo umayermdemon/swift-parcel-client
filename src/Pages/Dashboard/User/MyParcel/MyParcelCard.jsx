@@ -1,11 +1,12 @@
 import { Typography } from "@material-tailwind/react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { MdOutlineCancel } from "react-icons/md";
-import { RiSecurePaymentFill } from "react-icons/ri";
 import MyParcelUpdateModal from "../../../../Components/MyParcelUpdateModal/MyParcelUpdateModal";
 import Swal from "sweetalert2";
 import ReviewsModal from "./ReviewsModal";
-
+import Payment from "../Payment/Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 const MyParcelCard = ({ user, isLast, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -15,7 +16,10 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
     bookingDate,
     deliveryManId,
     status,
+    price,
+    payment_status,
     _id,
+    trans_id
   } = user || {};
   const classes = isLast
     ? "p-4 text-center"
@@ -48,6 +52,8 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
       }
     });
   };
+  const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK);
+
   return (
     <tr key={_id}>
       <td className={classes}>
@@ -91,6 +97,17 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
           href="#"
           variant="small"
           color="blue-gray"
+          className="font-medium"
+        >
+          {trans_id}
+        </Typography>
+      </td>
+      <td className={classes}>
+        <Typography
+          as="a"
+          href="#"
+          variant="small"
+          color="blue-gray"
           className={
             status === "Pending"
               ? "bg-orange-300 p-1 rounded-md"
@@ -104,7 +121,7 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
           {status}
         </Typography>
       </td>
-      <td className={classes}>
+      <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
           <button>
             <MyParcelUpdateModal
@@ -116,7 +133,7 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
           </button>
         </Typography>
       </td>
-      <td className={`${classes} bg-blue-gray-50/50`}>
+      <td className={classes}>
         <Typography color="blue-gray">
           <button
             disabled={status != "Pending"}
@@ -133,17 +150,26 @@ const MyParcelCard = ({ user, isLast, refetch }) => {
           </button>
         </Typography>
       </td>
-      <td className={classes}>
+      <td className={`${classes} bg-blue-gray-50/50`}>
         <Typography color="blue-gray">
           <button>
             <ReviewsModal status={status} deliveryManId={deliveryManId} />
           </button>
         </Typography>
       </td>
-      <td className={`${classes} bg-blue-gray-50/50`}>
+      <td className={classes}>
         <Typography color="blue-gray">
           <button>
-            <RiSecurePaymentFill className="text-xl mx-auto" />
+            <Elements stripe={stripePromise}>
+              <Payment
+                price={price}
+                refetch={refetch}
+                payment_status={payment_status}
+                _id={_id}
+                status={status
+                }
+              />
+            </Elements>
           </button>
         </Typography>
       </td>

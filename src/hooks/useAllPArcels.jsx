@@ -6,6 +6,7 @@ const useAllParcels = () => {
   const axiosSecure = useAxiosSecure();
   const { data: parcels = [] , refetch,isLoading} = useQuery({
     queryKey: ["parcels"],
+    enabled: !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure.get("/parcels");
       return res.data;
