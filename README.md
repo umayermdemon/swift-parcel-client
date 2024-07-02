@@ -22,7 +22,7 @@ Welcome to **Swift Parcel** – your go-to solution for efficient and reliable p
 
 ## Local Setup
 To clone and run Swift Parcel locally, follow these steps:
-1. Clone the repository: `git clone https://github.com/your-username/swift-parcel.git`
+1. Clone the repository: `git clone https://github.com/umayermdemon/swift-parcel-client.git`
 2. Navigate into the project directory: `cd swift-parcel`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
