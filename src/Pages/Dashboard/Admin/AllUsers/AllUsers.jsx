@@ -68,13 +68,19 @@ const AllUsers = () => {
   return (
     <div>
       <SectionTitle heading={"All Users"} />
-      <div className="max-w-6xl md:mx-2 h-[360px] lg:h-[380px] lg:mx-auto">
+      <div
+        className={
+          users.length > 5
+            ? "max-w-6xl md:mx-2 h-[360px] lg:h-[380px] lg:mx-auto"
+            : "max-w-6xl md:mx-2 pb-12 lg:mx-auto"
+        }
+      >
         <div className="bg-[#0E3557] max-w-6xl h-12 rounded-tl-xl rounded-tr-xl">
           <h2 className="text-white font-semibold ml-4 pt-2">
-            Users:{" "}
+            Users:
             <span className="text-xl font-cinzel text-[#F5AB35]">
               {users.length}
-            </span>{" "}
+            </span>
             of <span className="font-cinzel text-xl">{totalUsers}</span>
           </h2>
         </div>
@@ -132,7 +138,6 @@ const AllUsers = () => {
           </Button>
         ))}
         <Button variant="text" size="sm" className="mr-1" onClick={handleNext}>
-          {" "}
           <ArrowRightIcon className="text-black w-5" />
         </Button>
       </div>
