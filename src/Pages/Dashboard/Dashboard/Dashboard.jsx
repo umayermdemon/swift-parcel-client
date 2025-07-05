@@ -123,7 +123,4 @@ const Dashboard = () => {
   );
 };
 
-//h-[630px] lg:h-[750px]
-//h-[630px] lg:h-[750px]
-
 export default Dashboard;
